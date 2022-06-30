@@ -1,9 +1,9 @@
 <template>
   <b-container class="mt-5">
-    <b-row>
+    <b-row class="d-flex align-items-center" style="height: 80vh">
       <b-col></b-col>
       
-      <b-col sm="12" md="6">
+      <b-col md="6">
           <b-card bg-variant="light">
             <b-card-title class="text-center mb-4">Faça o login para acessar o sistema</b-card-title>
             <b-form @submit.prevent="login()">

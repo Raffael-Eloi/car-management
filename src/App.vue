@@ -1,14 +1,16 @@
 <template>
-  <login />
+  <Header />
+  <!-- <Login /> -->
 </template>
 
 <script>
-import Login from './components/pages/login/Login.vue';
+// import Login from './components/pages/login/Login.vue';
+import Header from './components/shared/header/Header.vue';
 
 export default {
   name: 'App',
   components: {
-    Login
+    Header
   }
 }
 </script>
