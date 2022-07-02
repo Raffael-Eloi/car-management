@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 bg-primary bg-gradient">
+  <div class="p-2 bg-dark bg-gradient">
     <b-row>
       <b-col md="4" class="d-flex align-items-center">
         <b-nav>
