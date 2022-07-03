@@ -1,13 +1,15 @@
 <template>
-  <b-sidebar>
-    <b-card>
-      <b-img src="https://picsum.photos/300/150/?image=41" fluid alt="Fluid image"></b-img>
-    </b-card>
-    <b-list-group>
-      <b-list-group-item>Usuários</b-list-group-item>
-      <b-list-group-item>Veículos</b-list-group-item>
+  <aside style="height: 100vh" class="bg-dark bg-gradient">
+    <b-list-group class="p-2">
+      <h5 class="text-light text-center mb-3">Menu de opções</h5>
+
+      <router-link :to="{name: 'user'}">
+        <b-list-group-item class="list-item-custom">Clientes</b-list-group-item>
+      </router-link>
+
+      <b-list-group-item class="list-item-custom">Veículos</b-list-group-item>
     </b-list-group>
-  </b-sidebar>
+  </aside>
 </template>
 
 <script>
@@ -24,5 +26,24 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
+a:active {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.list-item-custom {
+  transition: 400ms;
+}
+
+.list-item-custom:hover {
+  background-color: #198754;
+}
 </style>

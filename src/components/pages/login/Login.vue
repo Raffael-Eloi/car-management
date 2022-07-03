@@ -12,12 +12,12 @@
                 </b-form-input>
               </b-form-group>
 
-              <b-form-group label="Senha" label-for="input-senha">
-                <b-form-input id="input-senha" type="password" autocomplete="on" v-model="form.inputs.password" placeholder="Digite sua senha" required></b-form-input>
+              <b-form-group label="Senha" label-for="input-password">
+                <b-form-input id="input-password" type="password" autocomplete="on" v-model="form.inputs.password" placeholder="Digite sua senha" required></b-form-input>
               </b-form-group>
 
               <div class="d-grid gap-2">
-                <b-button type="submit" variant="success" @click.prevent="login()" :disabled="form.loading">Entrar</b-button>
+                <b-button type="submit" variant="success" @click.prevent="login()" :disabled="form.loading">Entrar <i class="fa-solid fa-arrow-right-to-bracket"></i></b-button>
               </div>
 
               <div class="text-center" v-if="form.loading">
