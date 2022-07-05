@@ -1,6 +1,6 @@
 <template>
   <b-card class="m-5">
-    <b-card-title class="text-center">Cadastro de usuários</b-card-title>
+    <b-card-title class="text-center">Cadastro de clientes</b-card-title>
     <b-form @submit.prevent="storeUser()">
         <b-row>
           <b-col>
@@ -54,22 +54,7 @@
             </b-form-group>
           </b-col>
         </b-row>
-
-        <b-row>
-          <b-col>
-            <b-form-group label="Senha" label-for="input-password">
-              <b-form-input id="input-password" type="password" v-model="form.inputs.password" autocomplete="on" placeholder="Digite a senha">
-              </b-form-input>
-            </b-form-group>
-          </b-col>
-
-          <b-col>
-            <b-form-group label="Confirmar senha" label-for="input-passwordConfirm">
-              <b-form-input id="input-passwordConfirm" type="password" v-model="form.inputs.passwordConfirm" autocomplete="on" placeholder="Digite a senha novamente"></b-form-input>
-            </b-form-group>
-          </b-col>
-        </b-row>
-
+        
         <div class="text-center" v-if="form.loading">
           <b-spinner variant="secondary" class="m-5"></b-spinner>
         </div>

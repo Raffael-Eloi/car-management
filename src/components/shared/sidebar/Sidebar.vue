@@ -7,9 +7,13 @@
         <b-list-group-item class="list-item-custom">Usuários</b-list-group-item>
       </router-link>
 
-      <b-list-group-item class="list-item-custom">Clientes</b-list-group-item>
+      <router-link :to="{name: 'customer'}">
+        <b-list-group-item class="list-item-custom">Clientes</b-list-group-item>
+      </router-link>
 
       <b-list-group-item class="list-item-custom">Veículos</b-list-group-item>
+
+      <b-list-group-item class="list-item-custom">Caixa de marchas</b-list-group-item>
     </b-list-group>
   </aside>
 </template>
