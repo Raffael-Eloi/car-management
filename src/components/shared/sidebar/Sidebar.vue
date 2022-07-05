@@ -4,8 +4,10 @@
       <h5 class="text-light text-center mb-3">Menu de opções</h5>
 
       <router-link :to="{name: 'user'}">
-        <b-list-group-item class="list-item-custom">Clientes</b-list-group-item>
+        <b-list-group-item class="list-item-custom">Usuários</b-list-group-item>
       </router-link>
+
+      <b-list-group-item class="list-item-custom">Clientes</b-list-group-item>
 
       <b-list-group-item class="list-item-custom">Veículos</b-list-group-item>
     </b-list-group>

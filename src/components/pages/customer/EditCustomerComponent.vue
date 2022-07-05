@@ -1,6 +1,6 @@
 <template>
   <b-card class="m-5">
-    <b-card-title class="text-center">Cadastro de cliente</b-card-title>
+    <b-card-title class="text-center">Editar usuário</b-card-title>
     <b-form @submit.prevent="updateUser()">
         <b-row>
           <b-col>
