@@ -14,7 +14,7 @@
                 <b-form-input type="text" placeholder="Pesquisar usuário"></b-form-input>
               </b-col>
               <b-col md="2">
-                <b-button variant="success"><i class="fa-solid fa-magnifying-glass"></i></b-button>
+                <b-button variant="success" @click="getUsers()"><i class="fa-solid fa-magnifying-glass"></i></b-button>
               </b-col>
               <br />
             </b-row>
@@ -29,12 +29,13 @@
 
         <h5 class="text-center mt-5" v-if="!isModalOpen()">Lista de usuários</h5> 
 
-        <div class="text-center" v-if="loading && !isModalOpen()">
-          <b-spinner variant="secondary" class="m-5"></b-spinner>
-        </div>
+        <b-row class="px-5" v-if="!isModalOpen()">
+          <!-- loading -->
+          <div class="text-center" v-if="loading && !isModalOpen()">
+            <b-spinner variant="secondary" class="m-5"></b-spinner>
+          </div>
 
-        <b-row class="px-4" v-if="!isModalOpen()">
-          <b-col>
+          <b-col v-else>
             <b-table-simple hover small caption-top responsive style="border-radius: 10px">
               <b-thead head-variant="success">
                 <b-tr>
@@ -45,10 +46,10 @@
                 </b-tr>
               </b-thead>
               <b-tbody>
-                <b-tr>
-                  <b-td class="text-center">111.111.111-11</b-td>
-                  <b-td class="text-center" colspan="2">João da Silva</b-td>
-                  <b-td class="text-center">(63) 91111-1111</b-td>
+                <b-tr v-for="(user, index) in table.data" :key="index">
+                  <b-td class="text-center">{{user.document}}</b-td>
+                  <b-td class="text-center" colspan="2">{{user.name}}</b-td>
+                  <b-td class="text-center">{{user.document}}</b-td>
                   <b-td class="text-center">
                     <i class="fa-solid fa-eye me-3 text-primary"></i>
                     <i class="fa-solid fa-pencil me-3"></i>
@@ -58,7 +59,7 @@
               </b-tbody>
               <b-tfoot>
                 <b-tr>
-                  <b-td colspan="5" variant="success" class="text-end"><span class="me-5">Total de usuários: <b>5</b></span></b-td>
+                  <b-td colspan="5" variant="success" class="text-end"><span class="me-5">Total de usuários: <b>{{table.data.length}}</b></span></b-td>
                 </b-tr>
               </b-tfoot>
             </b-table-simple>
@@ -81,6 +82,7 @@
 import Header from '../../shared/header/Header.vue';
 import Sidebar from '../../shared/sidebar/Sidebar.vue';
 import CreateUserComponent from './CreateUserComponent.vue'
+import api from '../../../api';
 
 export default {
   name: 'page-user',
@@ -91,15 +93,23 @@ export default {
     'create-user-component': CreateUserComponent
   },
 
+  mounted() {
+    this.getUsers();
+  },
+
   data() {
     return {
+      table: {
+        data: []
+      },
+
       modal: {
         openCreateUserModal: false,
         openEditUserModal: false,
         openShowUserModal: false
       },
 
-      loading: false
+      loading: true
     }
   },
 
@@ -111,6 +121,15 @@ export default {
 
     closeModalUserCreation () {
       this.modal.openCreateUserModal = false;
+    },
+
+    getUsers() {
+      api.get(`/users`)
+      .then(response => {
+        this.table.data = response.data;
+        this.loading = false;
+      })
+      .catch(error => error)
     }
   }
 

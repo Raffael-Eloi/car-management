@@ -1,5 +1,5 @@
 <template>
-  <b-card class="m-5">
+  <b-card class="m-5" v-if="active">
     <b-card-title class="text-center">Cadastro de usuários</b-card-title>
     <b-form @submit.prevent="storeUser()">
         <b-row>
@@ -92,12 +92,18 @@
 </template>
 
 <script>
+import { states } from '../../utilities/brazilianStates';
+
 export default { 
   name: 'create-user-component',
 
   props: {
     active: Boolean,
     close: { tye: Function}
+  },
+
+  mounted() {
+    this.cleanForm();
   },
 
   created() {
@@ -113,44 +119,32 @@ export default {
       },
 
       select: {
-        stateOptions: [
-          {value: null, text: 'Selecione um estado'},
-          {value: "AC", text: "AC"},
-          {value: "AL", text: "AL"},
-          {value: "AP", text: "AP"},
-          {value: "AM", text: "AM"},
-          {value: "BA", text: "BA"},
-          {value: "CE", text: "CE"},
-          {value: "DF", text: "DF"},
-          {value: "ES", text: "ES"},
-          {value: "GO", text: "GO"},
-          {value: "MA", text: "MA"},
-          {value: "MT", text: "MT"},
-          {value: "MS", text: "MS"},
-          {value: "MG", text: "MG"},
-          {value: "PA", text: "PA"},
-          {value: "PB", text: "PB"},
-          {value: "PR", text: "PR"},
-          {value: "PE", text: "PE"},
-          {value: "PI", text: "PI"},
-          {value: "RJ", text: "RJ"},
-          {value: "RN", text: "RN"},
-          {value: "RS", text: "RS"},
-          {value: "RO", text: "RO"},
-          {value: "RR", text: "RR"},
-          {value: "SC", text: "SC"},
-          {value: "SP", text: "SP"},
-          {value: "SE", text: "SE"},
-          {value: "TO", text: "TO"}
-
-        ]
+        stateOptions: states
       }
     }
   },
 
   methods: {
+    cleanForm() {
+      this.form.inputs = {};
+      this.form.errors = {};
+    },
+
     storeUser() {
       this.form.loading = true;
+      console.log('form');
+      console.log(this.form);
+      this.afterSuccessfulStore()
+    },
+    
+    afterSuccessfulStore () {
+      this.$toast.success("Conluído! Usuário cadastrado com sucesso!!");
+      this.close();
+    },
+
+    afterErrorStore () {
+      this.loading = false;
+      this.$toast.success("Conluído! Usuário cadastrado com sucesso!!");
     }
   }
 

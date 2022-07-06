@@ -4,6 +4,7 @@ import router from './routes.js';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
+import Toaster from '@meforma/vue-toaster';
 
-createApp(App).use(BootstrapVue3).use(router).mount('#app')
+createApp(App).use(BootstrapVue3).use(router).use(Toaster, {position: "top"}).mount('#app')
