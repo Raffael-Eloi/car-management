@@ -62,8 +62,8 @@
                   <b-td class="text-center">{{user.document}}</b-td>
                   <b-td class="text-center">
                     <i class="fa-solid fa-eye me-3 text-primary" @click.prevent="openModalShowUser(user)"></i>
-                    <i class="fa-solid fa-pencil me-3"></i>
-                    <i class="fa-solid fa-trash me-3 text-danger"></i>
+                    <i class="fa-solid fa-pencil me-3" @click.prevent="openModalEditUser(user)"></i>
+                    <i class="fa-solid fa-trash me-3 text-danger" @click.prevent="deleteUserModal(user)"></i>
                   </b-td>
                 </b-tr>
               </b-tbody>
@@ -80,6 +80,7 @@
           <b-col v-if="isModalOpen()">
             <create-user-component :active="modal.openCreateUserModal" :close="closeModalCreateUser"/>
             <show-user-component :active="modal.openShowUserModal" :form="user" :close="closeModalShowUser"/>
+            <edit-user-component :active="modal.openEditUserModal" :user="user" :close="closeModalEditUser"/>
           </b-col>
         </b-row>
 
@@ -94,6 +95,7 @@ import Header from '../../shared/header/Header.vue';
 import Sidebar from '../../shared/sidebar/Sidebar.vue';
 import CreateUserComponent from './CreateUserComponent.vue';
 import ShowUserComponent from './ShowUserComponent.vue';
+import EditUserComponent from './EditUserComponent.vue';
 import api from '../../../api';
 
 export default {
@@ -104,6 +106,7 @@ export default {
     'sidebar-component': Sidebar,
     'create-user-component': CreateUserComponent,
     'show-user-component': ShowUserComponent,
+    'edit-user-component': EditUserComponent
   },
 
   mounted() {
@@ -134,14 +137,19 @@ export default {
       else return false;
     },
 
-    closeModalCreateUser () {
-      this.modal.openCreateUserModal = false;
-      this.getUsers();
-    },
-
     openModalShowUser(user) {
       this.modal.openShowUserModal = true;
       this.user = user;
+    },
+
+    openModalEditUser(user) {
+      this.modal.openEditUserModal = true;
+      this.user = user;
+    },
+
+    closeModalCreateUser () {
+      this.modal.openCreateUserModal = false;
+      this.getUsers();
     },
 
     closeModalShowUser () {
@@ -149,14 +157,56 @@ export default {
       this.getUsers();
     },
 
+    closeModalEditUser () {
+      this.modal.openEditUserModal = false;
+      this.getUsers();
+    },
+
     getUsers() {
       this.loading = true;
-      api.get(`/users`)
+      api.get('/users')
       .then(response => {
         this.table.data = response.data;
         this.loading = false;
       })
+      .catch(error => console.log(error))
+    },
+
+    deleteUserModal (user) {
+      this.loading = true;
+
+      this.$swal({
+        title: 'Você tem certeza que deseja excluir o usuário?',
+        text: "Não será possível recuperar o usuário!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, excluir',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteUser(user.id);
+        } else this.loading = false;
+      })
+    },
+
+    deleteUser(id) {
+      api.delete(`/users/${id}`)
+      .then(response => {
+        this.showSuccessfulDeleteMessage();
+        this.loading = false;
+        this.getUsers();
+      })
       .catch(error => error)
+    },
+
+    showSuccessfulDeleteMessage () {
+      this.$swal(
+        'Concluído!',
+        'Usuário excluído com sucesso.',
+        'success'
+      );
     }
   }
 
