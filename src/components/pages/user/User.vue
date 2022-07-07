@@ -42,7 +42,7 @@
                   <b-th class="text-center">CPF/CPNJ</b-th>
                   <b-th class="text-center" colspan="2">Nome</b-th>
                   <b-th class="text-center">Telefone</b-th>
-                  <b-th class="text-center">Ação</b-th>
+                  <b-th class="text-center">Ações</b-th>
                 </b-tr>
               </b-thead>
               <b-tbody>
@@ -51,7 +51,7 @@
                   <b-td class="text-center" colspan="2">{{user.name}}</b-td>
                   <b-td class="text-center">{{user.document}}</b-td>
                   <b-td class="text-center">
-                    <i class="fa-solid fa-eye me-3 text-primary"></i>
+                    <i class="fa-solid fa-eye me-3 text-primary" @click.prevent="openModalShowUser(user)"></i>
                     <i class="fa-solid fa-pencil me-3"></i>
                     <i class="fa-solid fa-trash me-3 text-danger"></i>
                   </b-td>
@@ -68,7 +68,8 @@
 
         <b-row class="px-5">
           <b-col v-if="isModalOpen()">
-            <create-user-component :active="modal.openCreateUserModal" :close="closeModalUserCreation"/>
+            <create-user-component :active="modal.openCreateUserModal" :close="closeModalCreateUser"/>
+            <show-user-component :active="modal.openShowUserModal" :form="user" :close="closeModalShowUser"/>
           </b-col>
         </b-row>
 
@@ -81,7 +82,8 @@
 <script>
 import Header from '../../shared/header/Header.vue';
 import Sidebar from '../../shared/sidebar/Sidebar.vue';
-import CreateUserComponent from './CreateUserComponent.vue'
+import CreateUserComponent from './CreateUserComponent.vue';
+import ShowUserComponent from './ShowUserComponent.vue';
 import api from '../../../api';
 
 export default {
@@ -90,7 +92,8 @@ export default {
   components: {
     'header-component': Header,
     'sidebar-component': Sidebar,
-    'create-user-component': CreateUserComponent
+    'create-user-component': CreateUserComponent,
+    'show-user-component': ShowUserComponent,
   },
 
   mounted() {
@@ -109,7 +112,9 @@ export default {
         openShowUserModal: false
       },
 
-      loading: true
+      loading: true,
+
+      user: {}
     }
   },
 
@@ -119,8 +124,19 @@ export default {
       else return false;
     },
 
-    closeModalUserCreation () {
+    closeModalCreateUser () {
       this.modal.openCreateUserModal = false;
+      this.getUsers();
+    },
+
+    openModalShowUser(user) {
+      this.modal.openShowUserModal = true;
+      this.user = user;
+    },
+
+    closeModalShowUser () {
+      this.modal.openShowUserModal = false;
+      this.getUsers();
     },
 
     getUsers() {
@@ -137,4 +153,7 @@ export default {
 </script>
 
 <style scoped>
+i:hover {
+  cursor: pointer;
+}
 </style>
