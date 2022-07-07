@@ -121,7 +121,7 @@
           </b-col>
 
           <b-col class="d-flex justify-content-center">
-            <b-button type="submit" variant="success" @click.prevent="storeUser()" :disabled="form.loading">
+            <b-button type="submit" variant="success" @click.prevent="verifyPasswordAndStoreUser()" :disabled="form.loading">
               Cadastrar <i class="fa-solid fa-floppy-disk"></i>
             </b-button>
           </b-col>
@@ -171,6 +171,10 @@ export default {
       this.form.loading = false;
     },
 
+    verifyPasswordAndStoreUser() {
+      if (this.isPasswordValid()) this.storeUser();
+    },
+
     storeUser() {
       this.form.loading = true;
       const data = this.form.inputs;
@@ -199,6 +203,12 @@ export default {
       this.$toast.error(message);
     },
 
+    isPasswordValid() {
+      if (this.form.inputs.password !== this.form.inputs.passwordConfirm) {
+        this.form.errors.password = ['As senhas devem ser iguais'];
+        return false;
+      } else return true;
+    }
   }
 
   

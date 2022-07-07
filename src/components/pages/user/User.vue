@@ -27,6 +27,16 @@
           </b-col>
         </b-row>
 
+        <b-row class="px-5 mt-5" v-if="!isModalOpen()">
+          <b-col md="4">
+            <b-button variant="secondary" @click="getUsers()">
+              Atualizar tabela <i class="fa-solid fa-arrows-rotate"></i>
+            </b-button>
+          </b-col>
+          <b-col md="4"></b-col>
+          <b-col md="4"></b-col>
+        </b-row>
+
         <h5 class="text-center mt-5" v-if="!isModalOpen()">Lista de usuários</h5> 
 
         <b-row class="px-5" v-if="!isModalOpen()">
@@ -140,6 +150,7 @@ export default {
     },
 
     getUsers() {
+      this.loading = true;
       api.get(`/users`)
       .then(response => {
         this.table.data = response.data;
