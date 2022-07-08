@@ -40,6 +40,7 @@
         <h5 class="text-center mt-5" v-if="!isModalOpen()">Lista de usuários</h5> 
 
         <b-row class="px-5" v-if="!isModalOpen()">
+          
           <!-- loading -->
           <div class="text-center" v-if="loading && !isModalOpen()">
             <b-spinner variant="secondary" class="m-5"></b-spinner>
@@ -154,7 +155,6 @@ export default {
 
     closeModalShowUser () {
       this.modal.openShowUserModal = false;
-      this.getUsers();
     },
 
     closeModalEditUser () {
