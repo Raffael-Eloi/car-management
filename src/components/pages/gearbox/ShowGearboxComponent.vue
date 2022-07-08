@@ -168,7 +168,7 @@
 
 <script>
 export default { 
-  name: 'show-user-component',
+  name: 'show-gearbox-component',
 
   props: {
     active: Boolean,

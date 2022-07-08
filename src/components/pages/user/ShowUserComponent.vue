@@ -5,14 +5,14 @@
       <b-row>
         <b-col>
           <b-form-group label="Nome" label-for="input-name">
-            <b-form-input id="input-name" type="text" v v-model="user.name" disabled placeholder="Digite o nome">
+            <b-form-input id="input-name" type="text" v v-model="user.name" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
 
         <b-col>
           <b-form-group label="CPF/CPNJ" label-for="input-document">
-            <b-form-input id="input-document" type="text" autocomplete="on" v-model="user.document" disabled placeholder="Digite o documento">
+            <b-form-input id="input-document" type="text" autocomplete="on" v-model="user.document" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
@@ -21,14 +21,14 @@
       <b-row>
         <b-col>
           <b-form-group label="E-mail" label-for="input-email">
-            <b-form-input id="input-email" type="email" autocomplete="on" v-model="user.email" disabled placeholder="Digite o e-mail">
+            <b-form-input id="input-email" type="email" autocomplete="on" v-model="user.email" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
 
         <b-col>
           <b-form-group label="Telefone" label-for="input-phone">
-            <b-form-input id="input-phone" type="text" v-model="user.phone" disabled placeholder="Digite o telefone">
+            <b-form-input id="input-phone" type="text" v-model="user.phone" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
@@ -37,7 +37,7 @@
       <b-row>
         <b-col>
           <b-form-group label="Endereço" label-for="input-address">
-            <b-form-input id="input-address" type="text" autocomplete="on" v-model="user.address" disabled placeholder="Digite o endereço">
+            <b-form-input id="input-address" type="text" autocomplete="on" v-model="user.address" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
@@ -46,7 +46,7 @@
       <b-row>
         <b-col>
           <b-form-group label="Cidade" label-for="input-city">
-            <b-form-input id="input-city" type="text" v-model="user.city" disabled placeholder="Digite a cidade">
+            <b-form-input id="input-city" type="text" v-model="user.city" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>

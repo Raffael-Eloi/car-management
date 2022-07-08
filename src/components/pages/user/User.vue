@@ -60,7 +60,7 @@
                 <b-tr v-for="(user, index) in table.data" :key="index">
                   <b-td class="text-center">{{user.document}}</b-td>
                   <b-td class="text-center" colspan="2">{{user.name}}</b-td>
-                  <b-td class="text-center">{{user.document}}</b-td>
+                  <b-td class="text-center">{{user.phone}}</b-td>
                   <b-td class="text-center">
                     <i class="fa-solid fa-eye me-3 text-primary" @click.prevent="openModalShowUser(user)"></i>
                     <i class="fa-solid fa-pencil me-3" @click.prevent="openModalEditUser(user)"></i>
