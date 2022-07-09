@@ -11,17 +11,26 @@
           <b-col md="8">
             <b-row>
               <b-col md="10">
-                <b-form-input type="text" placeholder="Pesquisar veículo"></b-form-input>
+                <b-form-input
+                  type="text"
+                  placeholder="Pesquisar veículo"
+                ></b-form-input>
               </b-col>
               <b-col md="2">
-                <b-button variant="success"><i class="fa-solid fa-magnifying-glass"></i></b-button>
+                <b-button variant="success"
+                  ><i class="fa-solid fa-magnifying-glass"></i
+                ></b-button>
               </b-col>
               <br />
             </b-row>
           </b-col>
 
           <b-col md="4" v-if="!isModalOpen()">
-            <b-button type="button" variant="success" @click.prevent="modal.openCreateVehicleModal = true">
+            <b-button
+              type="button"
+              variant="success"
+              @click.prevent="modal.openCreateVehicleModal = true"
+            >
               <i class="fa-solid fa-plus text-light"></i> Cadastrar veículos
             </b-button>
           </b-col>
@@ -37,17 +46,24 @@
           <b-col md="4"></b-col>
         </b-row>
 
-        <h5 class="text-center mt-5" v-if="!isModalOpen()">Lista de veículos</h5> 
+        <h5 class="text-center mt-5" v-if="!isModalOpen()">
+          Lista de veículos
+        </h5>
 
         <b-row class="px-5" v-if="!isModalOpen()">
-        
           <!-- loading -->
           <div class="text-center" v-if="loading && !isModalOpen()">
             <b-spinner variant="secondary" class="m-5"></b-spinner>
           </div>
 
           <b-col v-else>
-            <b-table-simple hover small caption-top responsive style="border-radius: 10px">
+            <b-table-simple
+              hover
+              small
+              caption-top
+              responsive
+              style="border-radius: 10px"
+            >
               <b-thead head-variant="success">
                 <b-tr>
                   <b-th class="text-center">Marca</b-th>
@@ -60,21 +76,34 @@
               </b-thead>
               <b-tbody>
                 <b-tr v-for="(vehicle, index) in table.data" :key="index">
-                  <b-td class="text-center">{{vehicle.brand}}</b-td>
-                  <b-td class="text-center">{{vehicle.model}}</b-td>
-                  <b-td class="text-center">{{vehicle.license_plate}}</b-td>
-                  <b-td class="text-center">{{vehicle.year_model}}</b-td>
-                  <b-td class="text-center">{{vehicle.color}}</b-td>
+                  <b-td class="text-center">{{ vehicle.brand }}</b-td>
+                  <b-td class="text-center">{{ vehicle.model }}</b-td>
+                  <b-td class="text-center">{{ vehicle.license_plate }}</b-td>
+                  <b-td class="text-center">{{ vehicle.year_model }}</b-td>
+                  <b-td class="text-center">{{ vehicle.color }}</b-td>
                   <b-td class="text-center">
-                    <i class="fa-solid fa-eye me-3 text-primary" @click.prevent="openModalShowVehicle(vehicle)"></i>
-                    <i class="fa-solid fa-pencil me-3" @click.prevent="openModalEditVehicle(vehicle)"></i>
-                    <i class="fa-solid fa-trash me-3 text-danger" @click.prevent="deleteVehicleModal(vehicle)"></i>
+                    <i
+                      class="fa-solid fa-eye me-3 text-primary"
+                      @click.prevent="openModalShowVehicle(vehicle)"
+                    ></i>
+                    <i
+                      class="fa-solid fa-pencil me-3"
+                      @click.prevent="openModalEditVehicle(vehicle)"
+                    ></i>
+                    <i
+                      class="fa-solid fa-trash me-3 text-danger"
+                      @click.prevent="deleteVehicleModal(vehicle)"
+                    ></i>
                   </b-td>
                 </b-tr>
               </b-tbody>
               <b-tfoot>
                 <b-tr>
-                  <b-td colspan="6" variant="success" class="text-end"><span class="me-5">Total de veículos: <b>{{table.data.length}}</b></span></b-td>
+                  <b-td colspan="6" variant="success" class="text-end"
+                    ><span class="me-5"
+                      >Total de veículos: <b>{{ table.data.length }}</b></span
+                    ></b-td
+                  >
                 </b-tr>
               </b-tfoot>
             </b-table-simple>
@@ -83,35 +112,44 @@
 
         <b-row class="px-5">
           <b-col v-if="isModalOpen()">
-            <create-vehicle-component :active="modal.openCreateVehicleModal" :close="closeModalCreateVehicle"/>
-            <show-vehicle-component :active="modal.openShowVehicleModal" :vehicle="vehicle" :close="closeModalShowVehicle"/>
-            <edit-vehicle-component :active="modal.openEditVehicleModal" :vehicle="vehicle" :close="closeModalEditVehicle"/>
+            <create-vehicle-component
+              :active="modal.openCreateVehicleModal"
+              :close="closeModalCreateVehicle"
+            />
+            <show-vehicle-component
+              :active="modal.openShowVehicleModal"
+              :vehicle="vehicle"
+              :close="closeModalShowVehicle"
+            />
+            <edit-vehicle-component
+              :active="modal.openEditVehicleModal"
+              :vehicle="vehicle"
+              :close="closeModalEditVehicle"
+            />
           </b-col>
         </b-row>
-
       </b-col>
     </b-row>
-
   </main>
 </template>
 
 <script>
-import Header from '../../shared/header/Header.vue';
-import Sidebar from '../../shared/sidebar/Sidebar.vue';
-import CreateVehicleComponent from './CreateVehicleComponent.vue';
-import ShowVehicleComponent from './ShowVehicleComponent.vue';
-import EditVehicleComponent from './EditVehicleComponent.vue';
-import api from '../../../api';
+import Header from "../../shared/header/Header.vue";
+import Sidebar from "../../shared/sidebar/Sidebar.vue";
+import CreateVehicleComponent from "./CreateVehicleComponent.vue";
+import ShowVehicleComponent from "./ShowVehicleComponent.vue";
+import EditVehicleComponent from "./EditVehicleComponent.vue";
+import api from "../../../api";
 
 export default {
-  name: 'page-vehicle',
-  
+  name: "page-vehicle",
+
   components: {
-    'header-component': Header,
-    'sidebar-component': Sidebar,
-    'create-vehicle-component': CreateVehicleComponent,
-    'show-vehicle-component': ShowVehicleComponent,
-    'edit-vehicle-component': EditVehicleComponent,
+    "header-component": Header,
+    "sidebar-component": Sidebar,
+    "create-vehicle-component": CreateVehicleComponent,
+    "show-vehicle-component": ShowVehicleComponent,
+    "edit-vehicle-component": EditVehicleComponent,
   },
 
   mounted() {
@@ -121,99 +159,99 @@ export default {
   data() {
     return {
       table: {
-        data: []
+        data: [],
       },
 
       modal: {
         openCreateVehicleModal: false,
         openEditVehicleModal: false,
-        openShowVehicleModal: false
+        openShowVehicleModal: false,
       },
 
       loading: false,
 
-      vehicle: {}
-    }
+      vehicle: {},
+    };
   },
 
   methods: {
     isModalOpen() {
-      if (this.modal.openCreateVehicleModal || this.modal.openEditVehicleModal || this.modal.openShowVehicleModal) return true;
+      if (
+        this.modal.openCreateVehicleModal ||
+        this.modal.openEditVehicleModal ||
+        this.modal.openShowVehicleModal
+      )
+        return true;
       else return false;
     },
 
-    openModalShowVehicle (vehicle) {
+    openModalShowVehicle(vehicle) {
       this.modal.openShowVehicleModal = true;
       this.vehicle = vehicle;
     },
 
-    openModalEditVehicle (vehicle) {
+    openModalEditVehicle(vehicle) {
       this.modal.openEditVehicleModal = true;
       this.vehicle = vehicle;
     },
 
-    closeModalCreateVehicle () {
+    closeModalCreateVehicle() {
       this.modal.openCreateVehicleModal = false;
-      this.getVehicles()
+      this.getVehicles();
     },
 
-    closeModalShowVehicle () {
+    closeModalShowVehicle() {
       this.modal.openShowVehicleModal = false;
     },
 
-    closeModalEditVehicle () {
+    closeModalEditVehicle() {
       this.modal.openEditVehicleModal = false;
     },
 
     getVehicles() {
       this.loading = true;
-      api.get('/vehicles')
-      .then(response => {
-        this.table.data = response.data;
-        this.loading = false;
-      })
-      .catch(error => console.log(error))
+      api.get("/vehicles")
+        .then((response) => {
+          this.table.data = response.data;
+          this.loading = false;
+        })
+        .catch((error) => console.log(error));
     },
 
-    deleteVehicleModal (vehicle) {
+    deleteVehicleModal(vehicle) {
       this.loading = true;
 
       this.$swal({
-        title: 'Você tem certeza que deseja excluir o veículo?',
+        title: "Você tem certeza que deseja excluir o veículo?",
         text: "Não será possível recuperar!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#198754',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, excluir',
-        cancelButtonText: 'Cancelar'
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           this.deleteVehicle(vehicle.id);
         } else this.loading = false;
-      })
+      });
     },
 
     deleteVehicle(id) {
       api.delete(`/vehicles/${id}`)
-      .then(response => {
-        this.showSuccessfulDeleteMessage();
-        this.loading = false;
-        this.getVehicles();
-      })
-      .catch(error => error)
+        .then((response) => {
+          this.showSuccessfulDeleteMessage();
+          this.loading = false;
+          this.getVehicles();
+        })
+        .catch((error) => error);
     },
 
-    showSuccessfulDeleteMessage () {
-      this.$swal(
-        'Concluído!',
-        'Veículo excluído com sucesso.',
-        'success'
-      );
-    }
-  }
-
-}
+    showSuccessfulDeleteMessage() {
+      this.$swal("Concluído!", "Veículo excluído com sucesso.", "success");
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -3,45 +3,43 @@
     <b-list-group class="p-2">
       <h5 class="text-light text-center mb-3">Menu de opções</h5>
 
-      <router-link :to="{name: 'user'}">
+      <router-link :to="{ name: 'user' }">
         <b-list-group-item class="list-item-custom">
           <i class="fa-solid fa-user ms-5"></i> Usuários
         </b-list-group-item>
       </router-link>
 
-      <router-link :to="{name: 'customer'}">
+      <router-link :to="{ name: 'customer' }">
         <b-list-group-item class="list-item-custom">
           <i class="fa-solid fa-users ms-5"></i> Clientes
         </b-list-group-item>
       </router-link>
 
-      <router-link :to="{name: 'vehicle'}">
+      <router-link :to="{ name: 'vehicle' }">
         <b-list-group-item class="list-item-custom">
-          <i class="fa-solid fa-car ms-5"></i> Veículos 
+          <i class="fa-solid fa-car ms-5"></i> Veículos
         </b-list-group-item>
       </router-link>
 
-      <router-link :to="{name: 'gearbox'}">
+      <router-link :to="{ name: 'gearbox' }">
         <b-list-group-item class="list-item-custom">
           <i class="fa-solid fa-gears ms-5"></i> Caixa de marchas
         </b-list-group-item>
       </router-link>
-
     </b-list-group>
   </aside>
 </template>
 
 <script>
-
 export default {
-  name: 'sidebar-component',
+  name: "sidebar-component",
 
   data() {
     return {
-      visible: false
-    }
-  }
-}
+      visible: false,
+    };
+  },
+};
 </script>
 
 <style scoped>

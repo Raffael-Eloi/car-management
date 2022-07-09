@@ -2,30 +2,50 @@
   <b-container class="mt-5">
     <b-row class="d-flex align-items-center" style="height: 80vh">
       <b-col></b-col>
-      
+
       <b-col md="6">
-          <b-card bg-variant="light">
-            <b-card-title class="text-center mb-4">Faça o login para acessar o sistema</b-card-title>
-            <b-form @submit.prevent="login()">
-              <b-form-group label="E-mail" label-for="input-email">
-                <b-form-input id="input-email" type="email" v-model="form.inputs.email" placeholder="Digite seu e-mail">
-                </b-form-input>
-              </b-form-group>
+        <b-card bg-variant="light">
+          <b-card-title class="text-center mb-4"
+            >Faça o login para acessar o sistema</b-card-title
+          >
+          <b-form @submit.prevent="login()">
+            <b-form-group label="E-mail" label-for="input-email">
+              <b-form-input
+                id="input-email"
+                type="email"
+                v-model="form.inputs.email"
+                placeholder="Digite seu e-mail"
+              >
+              </b-form-input>
+            </b-form-group>
 
-              <b-form-group label="Senha" label-for="input-password">
-                <b-form-input id="input-password" type="password" autocomplete="on" v-model="form.inputs.password" placeholder="Digite sua senha" required></b-form-input>
-              </b-form-group>
+            <b-form-group label="Senha" label-for="input-password">
+              <b-form-input
+                id="input-password"
+                type="password"
+                autocomplete="on"
+                v-model="form.inputs.password"
+                placeholder="Digite sua senha"
+                required
+              ></b-form-input>
+            </b-form-group>
 
-              <div class="d-grid gap-2">
-                <b-button type="submit" variant="success" @click.prevent="login()" :disabled="form.loading">Entrar <i class="fa-solid fa-arrow-right-to-bracket"></i></b-button>
-              </div>
+            <div class="d-grid gap-2">
+              <b-button
+                type="submit"
+                variant="success"
+                @click.prevent="login()"
+                :disabled="form.loading"
+                >Entrar <i class="fa-solid fa-arrow-right-to-bracket"></i
+              ></b-button>
+            </div>
 
-              <div class="text-center" v-if="form.loading">
-                <b-spinner variant="secondary" class="m-5"></b-spinner>
-              </div>
-            </b-form>
-          </b-card>
-        </b-col>
+            <div class="text-center" v-if="form.loading">
+              <b-spinner variant="secondary" class="m-5"></b-spinner>
+            </div>
+          </b-form>
+        </b-card>
+      </b-col>
 
       <b-col></b-col>
     </b-row>
@@ -34,25 +54,24 @@
 
 <script>
 export default {
-  name: 'page-login',
+  name: "page-login",
 
   data() {
     return {
       form: {
         inputs: {},
-        loading: false
-      }
-    }
+        loading: false,
+      },
+    };
   },
 
   methods: {
     login() {
       this.form.loading = true;
-    } 
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

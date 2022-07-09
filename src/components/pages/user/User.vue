@@ -11,17 +11,26 @@
           <b-col md="9">
             <b-row>
               <b-col md="10">
-                <b-form-input type="text" placeholder="Pesquisar usuário"></b-form-input>
+                <b-form-input
+                  type="text"
+                  placeholder="Pesquisar usuário"
+                ></b-form-input>
               </b-col>
               <b-col md="2">
-                <b-button variant="success" @click="getUsers()"><i class="fa-solid fa-magnifying-glass"></i></b-button>
+                <b-button variant="success" @click="getUsers()"
+                  ><i class="fa-solid fa-magnifying-glass"></i
+                ></b-button>
               </b-col>
               <br />
             </b-row>
           </b-col>
 
           <b-col md="3" v-if="!isModalOpen()">
-            <b-button type="button" variant="success" @click.prevent="modal.openCreateUserModal = true">
+            <b-button
+              type="button"
+              variant="success"
+              @click.prevent="modal.openCreateUserModal = true"
+            >
               <i class="fa-solid fa-plus text-light"></i> Cadastrar usuário
             </b-button>
           </b-col>
@@ -37,17 +46,24 @@
           <b-col md="4"></b-col>
         </b-row>
 
-        <h5 class="text-center mt-5" v-if="!isModalOpen()">Lista de usuários</h5> 
+        <h5 class="text-center mt-5" v-if="!isModalOpen()">
+          Lista de usuários
+        </h5>
 
         <b-row class="px-5" v-if="!isModalOpen()">
-          
           <!-- loading -->
           <div class="text-center" v-if="loading && !isModalOpen()">
             <b-spinner variant="secondary" class="m-5"></b-spinner>
           </div>
 
           <b-col v-else>
-            <b-table-simple hover small caption-top responsive style="border-radius: 10px">
+            <b-table-simple
+              hover
+              small
+              caption-top
+              responsive
+              style="border-radius: 10px"
+            >
               <b-thead head-variant="success">
                 <b-tr>
                   <b-th class="text-center">CPF/CPNJ</b-th>
@@ -58,19 +74,32 @@
               </b-thead>
               <b-tbody>
                 <b-tr v-for="(user, index) in table.data" :key="index">
-                  <b-td class="text-center">{{user.document}}</b-td>
-                  <b-td class="text-center" colspan="2">{{user.name}}</b-td>
-                  <b-td class="text-center">{{user.phone}}</b-td>
+                  <b-td class="text-center">{{ user.document }}</b-td>
+                  <b-td class="text-center" colspan="2">{{ user.name }}</b-td>
+                  <b-td class="text-center">{{ user.phone }}</b-td>
                   <b-td class="text-center">
-                    <i class="fa-solid fa-eye me-3 text-primary" @click.prevent="openModalShowUser(user)"></i>
-                    <i class="fa-solid fa-pencil me-3" @click.prevent="openModalEditUser(user)"></i>
-                    <i class="fa-solid fa-trash me-3 text-danger" @click.prevent="deleteUserModal(user)"></i>
+                    <i
+                      class="fa-solid fa-eye me-3 text-primary"
+                      @click.prevent="openModalShowUser(user)"
+                    ></i>
+                    <i
+                      class="fa-solid fa-pencil me-3"
+                      @click.prevent="openModalEditUser(user)"
+                    ></i>
+                    <i
+                      class="fa-solid fa-trash me-3 text-danger"
+                      @click.prevent="deleteUserModal(user)"
+                    ></i>
                   </b-td>
                 </b-tr>
               </b-tbody>
               <b-tfoot>
                 <b-tr>
-                  <b-td colspan="5" variant="success" class="text-end"><span class="me-5">Total de usuários: <b>{{table.data.length}}</b></span></b-td>
+                  <b-td colspan="5" variant="success" class="text-end"
+                    ><span class="me-5"
+                      >Total de usuários: <b>{{ table.data.length }}</b></span
+                    ></b-td
+                  >
                 </b-tr>
               </b-tfoot>
             </b-table-simple>
@@ -79,35 +108,44 @@
 
         <b-row class="px-5">
           <b-col v-if="isModalOpen()">
-            <create-user-component :active="modal.openCreateUserModal" :close="closeModalCreateUser"/>
-            <show-user-component :active="modal.openShowUserModal" :form="user" :close="closeModalShowUser"/>
-            <edit-user-component :active="modal.openEditUserModal" :user="user" :close="closeModalEditUser"/>
+            <create-user-component
+              :active="modal.openCreateUserModal"
+              :close="closeModalCreateUser"
+            />
+            <show-user-component
+              :active="modal.openShowUserModal"
+              :user="user"
+              :close="closeModalShowUser"
+            />
+            <edit-user-component
+              :active="modal.openEditUserModal"
+              :user="user"
+              :close="closeModalEditUser"
+            />
           </b-col>
         </b-row>
-
       </b-col>
     </b-row>
-
   </main>
 </template>
 
 <script>
-import Header from '../../shared/header/Header.vue';
-import Sidebar from '../../shared/sidebar/Sidebar.vue';
-import CreateUserComponent from './CreateUserComponent.vue';
-import ShowUserComponent from './ShowUserComponent.vue';
-import EditUserComponent from './EditUserComponent.vue';
-import api from '../../../api';
+import Header from "../../shared/header/Header.vue";
+import Sidebar from "../../shared/sidebar/Sidebar.vue";
+import CreateUserComponent from "./CreateUserComponent.vue";
+import ShowUserComponent from "./ShowUserComponent.vue";
+import EditUserComponent from "./EditUserComponent.vue";
+import api from "../../../api";
 
 export default {
-  name: 'page-user',
-  
+  name: "page-user",
+
   components: {
-    'header-component': Header,
-    'sidebar-component': Sidebar,
-    'create-user-component': CreateUserComponent,
-    'show-user-component': ShowUserComponent,
-    'edit-user-component': EditUserComponent
+    "header-component": Header,
+    "sidebar-component": Sidebar,
+    "create-user-component": CreateUserComponent,
+    "show-user-component": ShowUserComponent,
+    "edit-user-component": EditUserComponent,
   },
 
   mounted() {
@@ -117,24 +155,29 @@ export default {
   data() {
     return {
       table: {
-        data: []
+        data: [],
       },
 
       modal: {
         openCreateUserModal: false,
         openEditUserModal: false,
-        openShowUserModal: false
+        openShowUserModal: false,
       },
 
       loading: true,
 
-      user: {}
-    }
+      user: {},
+    };
   },
 
   methods: {
     isModalOpen() {
-      if (this.modal.openCreateUserModal || this.modal.openEditUserModal || this.modal.openShowUserModal) return true;
+      if (
+        this.modal.openCreateUserModal ||
+        this.modal.openEditUserModal ||
+        this.modal.openShowUserModal
+      )
+        return true;
       else return false;
     },
 
@@ -148,69 +191,64 @@ export default {
       this.user = user;
     },
 
-    closeModalCreateUser () {
+    closeModalCreateUser() {
       this.modal.openCreateUserModal = false;
       this.getUsers();
     },
 
-    closeModalShowUser () {
+    closeModalShowUser() {
       this.modal.openShowUserModal = false;
     },
 
-    closeModalEditUser () {
+    closeModalEditUser() {
       this.modal.openEditUserModal = false;
       this.getUsers();
     },
 
     getUsers() {
       this.loading = true;
-      api.get('/users')
-      .then(response => {
-        this.table.data = response.data;
-        this.loading = false;
-      })
-      .catch(error => console.log(error))
+      api.get("/users")
+        .then((response) => {
+          this.table.data = response.data;
+          this.loading = false;
+        })
+        .catch((error) => console.log(error));
     },
 
-    deleteUserModal (user) {
+    deleteUserModal(user) {
       this.loading = true;
 
       this.$swal({
-        title: 'Você tem certeza que deseja excluir o usuário?',
+        title: "Você tem certeza que deseja excluir o usuário?",
         text: "Não será possível recuperar o usuário!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#198754',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, excluir',
-        cancelButtonText: 'Cancelar'
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           this.deleteUser(user.id);
         } else this.loading = false;
-      })
+      });
     },
 
     deleteUser(id) {
       api.delete(`/users/${id}`)
-      .then(response => {
-        this.showSuccessfulDeleteMessage();
-        this.loading = false;
-        this.getUsers();
-      })
-      .catch(error => error)
+        .then((response) => {
+          this.showSuccessfulDeleteMessage();
+          this.loading = false;
+          this.getUsers();
+        })
+        .catch((error) => error);
     },
 
-    showSuccessfulDeleteMessage () {
-      this.$swal(
-        'Concluído!',
-        'Usuário excluído com sucesso.',
-        'success'
-      );
-    }
-  }
-
-}
+    showSuccessfulDeleteMessage() {
+      this.$swal("Concluído!", "Usuário excluído com sucesso.", "success");
+    },
+  },
+};
 </script>
 
 <style scoped>
