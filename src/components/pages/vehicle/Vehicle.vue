@@ -8,7 +8,7 @@
 
       <b-col md="9">
         <b-row class="mt-3" v-if="!isModalOpen()">
-          <b-col md="9">
+          <b-col md="8">
             <b-row>
               <b-col md="10">
                 <b-form-input type="text" placeholder="Pesquisar veículo"></b-form-input>
@@ -20,45 +20,61 @@
             </b-row>
           </b-col>
 
-          <b-col md="3" v-if="!isModalOpen()">
-            <b-button type="button" variant="success" @click.prevent="modal.openCreateUserModal = true">
-              <i class="fa-solid fa-plus text-light"></i> Cadastrar veículo
+          <b-col md="4" v-if="!isModalOpen()">
+            <b-button type="button" variant="success" @click.prevent="modal.openCreateVehicleModal = true">
+              <i class="fa-solid fa-plus text-light"></i> Cadastrar veículos
             </b-button>
           </b-col>
         </b-row>
 
+        <b-row class="px-5 mt-5" v-if="!isModalOpen()">
+          <b-col md="4">
+            <b-button variant="secondary" @click="getVehicles()">
+              Atualizar tabela <i class="fa-solid fa-arrows-rotate"></i>
+            </b-button>
+          </b-col>
+          <b-col md="4"></b-col>
+          <b-col md="4"></b-col>
+        </b-row>
+
         <h5 class="text-center mt-5" v-if="!isModalOpen()">Lista de veículos</h5> 
 
-        <div class="text-center" v-if="loading && !isModalOpen()">
-          <b-spinner variant="secondary" class="m-5"></b-spinner>
-        </div>
+        <b-row class="px-5" v-if="!isModalOpen()">
+        
+          <!-- loading -->
+          <div class="text-center" v-if="loading && !isModalOpen()">
+            <b-spinner variant="secondary" class="m-5"></b-spinner>
+          </div>
 
-        <b-row class="px-4" v-if="!isModalOpen()">
-          <b-col>
+          <b-col v-else>
             <b-table-simple hover small caption-top responsive style="border-radius: 10px">
               <b-thead head-variant="success">
                 <b-tr>
-                  <b-th class="text-center">CPF/CPNJ</b-th>
-                  <b-th class="text-center" colspan="2">Nome</b-th>
-                  <b-th class="text-center">Telefone</b-th>
+                  <b-th class="text-center">Marca</b-th>
+                  <b-th class="text-center">Modelo</b-th>
+                  <b-th class="text-center">Placa</b-th>
+                  <b-th class="text-center">Ano/Modelo</b-th>
+                  <b-th class="text-center">Cor</b-th>
                   <b-th class="text-center">Ação</b-th>
                 </b-tr>
               </b-thead>
               <b-tbody>
-                <b-tr>
-                  <b-td class="text-center">111.111.111-11</b-td>
-                  <b-td class="text-center" colspan="2">João da Silva</b-td>
-                  <b-td class="text-center">(63) 91111-1111</b-td>
+                <b-tr v-for="(vehicle, index) in table.data" :key="index">
+                  <b-td class="text-center">{{vehicle.brand}}</b-td>
+                  <b-td class="text-center">{{vehicle.model}}</b-td>
+                  <b-td class="text-center">{{vehicle.license_plate}}</b-td>
+                  <b-td class="text-center">{{vehicle.year_model}}</b-td>
+                  <b-td class="text-center">{{vehicle.color}}</b-td>
                   <b-td class="text-center">
-                    <i class="fa-solid fa-eye me-3 text-primary"></i>
-                    <i class="fa-solid fa-pencil me-3"></i>
-                    <i class="fa-solid fa-trash me-3 text-danger"></i>
+                    <i class="fa-solid fa-eye me-3 text-primary" @click.prevent="openModalShowVehicle(vehicle)"></i>
+                    <i class="fa-solid fa-pencil me-3" @click.prevent="openModalEditVehicle(vehicle)"></i>
+                    <i class="fa-solid fa-trash me-3 text-danger" @click.prevent="deleteVehicleModal(vehicle)"></i>
                   </b-td>
                 </b-tr>
               </b-tbody>
               <b-tfoot>
                 <b-tr>
-                  <b-td colspan="5" variant="success" class="text-end"><span class="me-5">Total de usuários: <b>5</b></span></b-td>
+                  <b-td colspan="6" variant="success" class="text-end"><span class="me-5">Total de veículos: <b>{{table.data.length}}</b></span></b-td>
                 </b-tr>
               </b-tfoot>
             </b-table-simple>
@@ -67,7 +83,9 @@
 
         <b-row class="px-5">
           <b-col v-if="isModalOpen()">
-            <create-vehicle-component :active="modal.openCreateUserModal" :close="closeModalUserCreation"/>
+            <create-vehicle-component :active="modal.openCreateVehicleModal" :close="closeModalCreateVehicle"/>
+            <show-vehicle-component :active="modal.openShowVehicleModal" :vehicle="vehicle" :close="closeModalShowVehicle"/>
+            <edit-vehicle-component :active="modal.openEditVehicleModal" :vehicle="vehicle" :close="closeModalEditVehicle"/>
           </b-col>
         </b-row>
 
@@ -80,37 +98,118 @@
 <script>
 import Header from '../../shared/header/Header.vue';
 import Sidebar from '../../shared/sidebar/Sidebar.vue';
-import CreateVehicleComponent from './CreateVehicleComponent.vue'
+import CreateVehicleComponent from './CreateVehicleComponent.vue';
+import ShowVehicleComponent from './ShowVehicleComponent.vue';
+import EditVehicleComponent from './EditVehicleComponent.vue';
+import api from '../../../api';
 
 export default {
-  name: 'page-user',
+  name: 'page-vehicle',
   
   components: {
     'header-component': Header,
     'sidebar-component': Sidebar,
-    'create-vehicle-component': CreateVehicleComponent
+    'create-vehicle-component': CreateVehicleComponent,
+    'show-vehicle-component': ShowVehicleComponent,
+    'edit-vehicle-component': EditVehicleComponent,
+  },
+
+  mounted() {
+    this.getVehicles();
   },
 
   data() {
     return {
-      modal: {
-        openCreateUserModal: false,
-        openEditUserModal: false,
-        openShowUserModal: false
+      table: {
+        data: []
       },
 
-      loading: false
+      modal: {
+        openCreateVehicleModal: false,
+        openEditVehicleModal: false,
+        openShowVehicleModal: false
+      },
+
+      loading: false,
+
+      vehicle: {}
     }
   },
 
   methods: {
     isModalOpen() {
-      if (this.modal.openCreateUserModal || this.modal.openEditUserModal || this.modal.openShowUserModal) return true;
+      if (this.modal.openCreateVehicleModal || this.modal.openEditVehicleModal || this.modal.openShowVehicleModal) return true;
       else return false;
     },
 
-    closeModalUserCreation () {
-      this.modal.openCreateUserModal = false;
+    openModalShowVehicle (vehicle) {
+      this.modal.openShowVehicleModal = true;
+      this.vehicle = vehicle;
+    },
+
+    openModalEditVehicle (vehicle) {
+      this.modal.openEditVehicleModal = true;
+      this.vehicle = vehicle;
+    },
+
+    closeModalCreateVehicle () {
+      this.modal.openCreateVehicleModal = false;
+      this.getVehicles()
+    },
+
+    closeModalShowVehicle () {
+      this.modal.openShowVehicleModal = false;
+    },
+
+    closeModalEditVehicle () {
+      this.modal.openEditVehicleModal = false;
+    },
+
+    getVehicles() {
+      this.loading = true;
+      api.get('/vehicles')
+      .then(response => {
+        this.table.data = response.data;
+        this.loading = false;
+      })
+      .catch(error => console.log(error))
+    },
+
+    deleteVehicleModal (vehicle) {
+      this.loading = true;
+
+      this.$swal({
+        title: 'Você tem certeza que deseja excluir o veículo?',
+        text: "Não será possível recuperar!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#198754',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, excluir',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteVehicle(vehicle.id);
+        } else this.loading = false;
+      })
+    },
+
+    deleteVehicle(id) {
+      api.delete(`/vehicles/${id}`)
+      .then(response => {
+        this.showSuccessfulDeleteMessage();
+        this.loading = false;
+        this.getVehicles();
+      })
+      .catch(error => error)
+    },
+
+    showSuccessfulDeleteMessage () {
+      this.$swal(
+        'Concluído!',
+        'Veículo excluído com sucesso.',
+        'success'
+      );
     }
   }
 
@@ -118,4 +217,7 @@ export default {
 </script>
 
 <style scoped>
+i:hover {
+  cursor: pointer;
+}
 </style>

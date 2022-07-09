@@ -1,71 +1,107 @@
 <template>
-  <b-card class="m-5">
-    <b-card-title class="text-center">Cadastro de usuários</b-card-title>
-    <b-form @submit.prevent="storeUser()">
+  <b-card class="m-5" v-if="active">
+    <b-card-title class="text-center">Cadastro de veículo</b-card-title>
+    <b-form @submit.prevent="storeVehicle()">
         <b-row>
           <b-col>
-            <b-form-group label="Nome" label-for="input-name">
-              <b-form-input id="input-name" type="text" v-model="form.inputs.name" placeholder="Digite o nome">
+            <b-form-group label="Marca" label-for="input-brand">
+              <b-form-input id="input-brand" type="text" v-model="form.inputs.brand" placeholder="Digite a marca">
               </b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.brand" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
 
           <b-col>
-            <b-form-group label="CPF/CPNJ" label-for="input-document">
-              <b-form-input id="input-document" type="text" autocomplete="on" v-model="form.inputs.document" placeholder="Digite o documento"></b-form-input>
+            <b-form-group label="Modelo" label-for="input-model">
+              <b-form-input id="input-model" type="text" v-model="form.inputs.model" placeholder="Digite o modelo"></b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.model" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
         </b-row>
 
         <b-row>
           <b-col>
-            <b-form-group label="E-mail" label-for="input-email">
-              <b-form-input id="input-email" type="email" autocomplete="on" v-model="form.inputs.email" placeholder="Digite o e-mail"></b-form-input>
+            <b-form-group label="Placa" label-for="input-license-plate">
+              <b-form-input id="input-license-plate" type="text" v-model="form.inputs.license_plate" placeholder="Digite a placa"></b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.license_plate" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
 
           <b-col>
-            <b-form-group label="Telefone" label-for="input-phone">
-              <b-form-input id="input-phone" type="text" v-model="form.inputs.phone" placeholder="Digite o telefone">
-              </b-form-input>
+            <b-form-group label="Ano/Modelo" label-for="input-year-model">
+              <b-form-select id="input-year-model" v-model="form.inputs.year_model" :options="select.yearModelOptions"></b-form-select>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.year_model" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
         </b-row>
 
         <b-row>
           <b-col>
-            <b-form-group label="Endereço" label-for="input-address">
-              <b-form-input id="input-address" type="text" autocomplete="on" v-model="form.inputs.address" placeholder="Digite o endereço"></b-form-input>
+            <b-form-group label="Cor" label-for="input-color">
+              <b-form-input id="input-color" type="text" v-model="form.inputs.color" placeholder="Digite a cor"></b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.color" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
+            </b-form-group>
+          </b-col>
+
+          <b-col>
+            <b-form-group label="Quantidade de eixos" label-for="input-axle-quantity">
+              <b-form-input id="input-axle-quantity" type="number" v-model="form.inputs.axle_quantity" placeholder="Digite a quantidade de eixos">
+              </b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.axle_quantity" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
         </b-row>
         
         <b-row>
           <b-col>
-            <b-form-group label="Cidade" label-for="input-city">
-              <b-form-input id="input-city" type="text" v-model="form.inputs.city" placeholder="Digite a cidade">
+            <b-form-group label="Torque" label-for="input-torque">
+              <b-form-input id="input-torque" type="number" v-model="form.inputs.torque" placeholder="Digite a cidade">
               </b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.torque" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
           
           <b-col>
-            <b-form-group label="Estado" label-for="input-state">
-              <b-form-select v-model="form.inputs.state" :options="select.stateOptions"></b-form-select>
+            <b-form-group label="Caixa de marchas" label-for="input-state">
+              <b-form-select v-model="form.inputs.gearbox_id" :options="select.gearBoxOptions" value-field="id" text-field="name"></b-form-select>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.gearbox_id" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
         </b-row>
 
         <b-row>
           <b-col>
-            <b-form-group label="Senha" label-for="input-password">
-              <b-form-input id="input-password" type="password" v-model="form.inputs.password" autocomplete="on" placeholder="Digite a senha">
+            <b-form-group label="Relação 1ª Marcha" label-for="input-relation-first-gear">
+              <b-form-input id="input-relation-first-gear" type="number" step="0.01" v-model="form.inputs.relation_first_gear" placeholder="Digite a relação">
               </b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.relation_first_gear" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
 
           <b-col>
-            <b-form-group label="Confirmar senha" label-for="input-passwordConfirm">
-              <b-form-input id="input-passwordConfirm" type="password" v-model="form.inputs.passwordConfirm" autocomplete="on" placeholder="Digite a senha novamente"></b-form-input>
+            <b-form-group label="Relação diferencial" label-for="input-axle_differential">
+              <b-form-input id="input-axle_differential" type="number" step="0.01" v-model="form.inputs.axle_differential" placeholder="Digite a relação diferencial"></b-form-input>
+              <ul class="text-danger" v-for="(errorMessage, index) in form.errors.axle_differential" :key="index">
+                <li class="fs-6">{{errorMessage}}</li>
+              </ul>
             </b-form-group>
           </b-col>
         </b-row>
@@ -82,7 +118,7 @@
           </b-col>
 
           <b-col class="d-flex justify-content-center">
-            <b-button type="submit" variant="success" @click.prevent="storeUser()" :disabled="form.loading">
+            <b-button type="submit" variant="success" @click.prevent="storeVehicle()" :disabled="form.loading">
               Salvar <i class="fa-solid fa-floppy-disk"></i>
             </b-button>
           </b-col>
@@ -92,12 +128,19 @@
 </template>
 
 <script>
+import { yearModelList } from '../../utilities/yearModelList';
+import api from '../../../api';
+
 export default { 
-  name: 'create-user-component',
+  name: 'create-vehicle-component',
 
   props: {
     active: Boolean,
     close: { tye: Function}
+  },
+
+  mounted() {
+    this.getAllGearBoxes();
   },
 
   created() {
@@ -113,45 +156,47 @@ export default {
       },
 
       select: {
-        stateOptions: [
-          {value: null, text: 'Selecione um estado'},
-          {value: "AC", text: "AC"},
-          {value: "AL", text: "AL"},
-          {value: "AP", text: "AP"},
-          {value: "AM", text: "AM"},
-          {value: "BA", text: "BA"},
-          {value: "CE", text: "CE"},
-          {value: "DF", text: "DF"},
-          {value: "ES", text: "ES"},
-          {value: "GO", text: "GO"},
-          {value: "MA", text: "MA"},
-          {value: "MT", text: "MT"},
-          {value: "MS", text: "MS"},
-          {value: "MG", text: "MG"},
-          {value: "PA", text: "PA"},
-          {value: "PB", text: "PB"},
-          {value: "PR", text: "PR"},
-          {value: "PE", text: "PE"},
-          {value: "PI", text: "PI"},
-          {value: "RJ", text: "RJ"},
-          {value: "RN", text: "RN"},
-          {value: "RS", text: "RS"},
-          {value: "RO", text: "RO"},
-          {value: "RR", text: "RR"},
-          {value: "SC", text: "SC"},
-          {value: "SP", text: "SP"},
-          {value: "SE", text: "SE"},
-          {value: "TO", text: "TO"}
-
-        ]
+        yearModelOptions: yearModelList,
+        gearBoxOptions: []
       }
     }
   },
 
   methods: {
-    storeUser() {
+    storeVehicle() {
       this.form.loading = true;
-    }
+      const data = this.form.inputs;
+
+      api.post('/vehicles', data)
+      .then(response => this.afterSuccessfulStore())
+      .catch(errors => this.afterErrorStore(errors))
+    },
+
+    getAllGearBoxes() {
+      api.get('/gearboxes')
+      .then(response => this.select.gearBoxOptions = response.data)
+      .catch(errors => console.log(errors))
+    },
+
+    afterSuccessfulStore () {
+      this.showSuccessMessage("Conluído! Veículo cadastrado com sucesso!");
+      this.close();
+    },
+
+    afterErrorStore (errors) {
+      console.log('errors', errors.response)
+      this.form.loading = false;
+      this.form.errors = errors.response.data.errors;
+      this.showErrorMessage("Ops! Ocorreu um erro ao cadastrar um novo veículo!")
+    },
+
+    showSuccessMessage(message) {
+      this.$toast.success(message);
+    },
+
+    showErrorMessage (message) {
+      this.$toast.error(message);
+    },
   }
 
   

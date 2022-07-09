@@ -9,4 +9,9 @@ import Toaster from '@meforma/vue-toaster';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-createApp(App).use(BootstrapVue3).use(router).use(Toaster, {position: "top"}).use(VueSweetalert2).mount('#app')
+createApp(App)
+.use(BootstrapVue3)
+.use(router)
+.use(Toaster, {position: "top"})
+.use(VueSweetalert2)
+.mount('#app')
