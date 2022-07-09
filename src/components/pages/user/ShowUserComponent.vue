@@ -12,7 +12,7 @@
 
         <b-col>
           <b-form-group label="CPF/CPNJ" label-for="input-document">
-            <b-form-input id="input-document" type="text" autocomplete="on" v-model="user.document" disabled>
+            <b-form-input id="input-document" type="text" v-model="user.document" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
@@ -21,7 +21,7 @@
       <b-row>
         <b-col>
           <b-form-group label="E-mail" label-for="input-email">
-            <b-form-input id="input-email" type="email" autocomplete="on" v-model="user.email" disabled>
+            <b-form-input id="input-email" type="email" v-model="user.email" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>
@@ -37,7 +37,7 @@
       <b-row>
         <b-col>
           <b-form-group label="Endereço" label-for="input-address">
-            <b-form-input id="input-address" type="text" autocomplete="on" v-model="user.address" disabled>
+            <b-form-input id="input-address" type="text" v-model="user.address" disabled>
             </b-form-input>
           </b-form-group>
         </b-col>

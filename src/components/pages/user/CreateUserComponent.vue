@@ -16,7 +16,7 @@
 
           <b-col>
             <b-form-group label="CPF/CPNJ" label-for="input-document">
-              <b-form-input id="input-document" type="text" autocomplete="on" v-model="form.inputs.document" placeholder="Digite o documento" :class="form.errors.document ? 'has-error-custom' : ''">
+              <b-form-input id="input-document" type="text" v-maska="['###.###.###-##', '##.###.###/###-##']" v-model="form.inputs.document" placeholder="Digite o documento" :class="form.errors.document ? 'has-error-custom' : ''">
               </b-form-input>
 
               <ul class="text-danger" v-for="(errorMessage, index) in form.errors.document" :key="index">
@@ -29,7 +29,7 @@
         <b-row>
           <b-col>
             <b-form-group label="E-mail" label-for="input-email">
-              <b-form-input id="input-email" type="email" autocomplete="on" v-model="form.inputs.email" placeholder="Digite o e-mail" :class="form.errors.email ? 'has-error-custom' : ''">
+              <b-form-input id="input-email" type="email" v-model="form.inputs.email" placeholder="Digite o e-mail" :class="form.errors.email ? 'has-error-custom' : ''">
               </b-form-input>
 
               <ul class="text-danger" v-for="(errorMessage, index) in form.errors.email" :key="index">
@@ -40,7 +40,7 @@
 
           <b-col>
             <b-form-group label="Telefone" label-for="input-phone">
-              <b-form-input id="input-phone" type="text" v-model="form.inputs.phone" placeholder="Digite o telefone" :class="form.errors.phone ? 'has-error-custom' : ''">
+              <b-form-input id="input-phone" v-maska="'(##) #####-####'" type="text" v-model="form.inputs.phone" placeholder="Digite o telefone" :class="form.errors.phone ? 'has-error-custom' : ''">
               </b-form-input>
               <ul class="text-danger" v-for="(errorMessage, index) in form.errors.phone" :key="index">
                 <li class="fs-6">{{errorMessage}}</li>
@@ -52,7 +52,7 @@
         <b-row>
           <b-col>
             <b-form-group label="Endereço" label-for="input-address">
-              <b-form-input id="input-address" type="text" autocomplete="on" v-model="form.inputs.address" placeholder="Digite o endereço" :class="form.errors.address ? 'has-error-custom' : ''">
+              <b-form-input id="input-address" type="text" v-model="form.inputs.address" placeholder="Digite o endereço" :class="form.errors.address ? 'has-error-custom' : ''">
               </b-form-input>
 
               <ul class="text-danger" v-for="(errorMessage, index) in form.errors.address" :key="index">
