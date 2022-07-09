@@ -14,14 +14,14 @@
         <b-row>
           <b-col>
             <b-form-group label="CL" label-for="input-cl">
-              <b-form-input id="input-cl" type="number" step="0.1" v-model="form.inputs.cl" disabled>
+              <b-form-input id="input-cl" type="number" step="0.01" v-model="form.inputs.cl" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="CR" label-for="input-cr">
-              <b-form-input id="input-cr" type="number" step="0.1" v-model="form.inputs.cr" disabled>
+              <b-form-input id="input-cr" type="number" step="0.01" v-model="form.inputs.cr" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -31,28 +31,28 @@
         <b-row>
           <b-col>
             <b-form-group label="1ª Marcha" label-for="input-gear-1">
-              <b-form-input id="input-gear-1" type="number" step="0.1" v-model="form.inputs.gear_1" disabled>
+              <b-form-input id="input-gear-1" type="number" step="0.01" v-model="form.inputs.gear_1" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="2ª Marcha" label-for="input-gear-2">
-              <b-form-input id="input-gear-2" type="number" step="0.1" v-model="form.inputs.gear_2" disabled>
+              <b-form-input id="input-gear-2" type="number" step="0.01" v-model="form.inputs.gear_2" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="3ª Marcha" label-for="input-gear-3">
-              <b-form-input id="input-gear-3" type="number" step="0.1" v-model="form.inputs.gear_3" disabled>
+              <b-form-input id="input-gear-3" type="number" step="0.01" v-model="form.inputs.gear_3" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="4ª Marcha" label-for="input-gear-4">
-              <b-form-input id="input-gear-4" type="number" step="0.1" v-model="form.inputs.gear_4" disabled>
+              <b-form-input id="input-gear-4" type="number" step="0.01" v-model="form.inputs.gear_4" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -62,28 +62,28 @@
         <b-row>
           <b-col>
             <b-form-group label="5ª Marcha" label-for="input-gear-4">
-              <b-form-input id="input-gear-4" type="number" step="0.1" v-model="form.inputs.gear_5" disabled>
+              <b-form-input id="input-gear-4" type="number" step="0.01" v-model="form.inputs.gear_5" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="6ª Marcha" label-for="input-gear-6">
-              <b-form-input id="input-gear-6" type="number" step="0.1" v-model="form.inputs.gear_6" disabled>
+              <b-form-input id="input-gear-6" type="number" step="0.01" v-model="form.inputs.gear_6" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="7ª Marcha" label-for="input-gear-7">
-              <b-form-input id="input-gear-7" type="number" step="0.1" v-model="form.inputs.gear_7" disabled>
+              <b-form-input id="input-gear-7" type="number" step="0.01" v-model="form.inputs.gear_7" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="8ª Marcha" label-for="input-gear-8">
-              <b-form-input id="input-gear-8" type="number" step="0.1" v-model="form.inputs.gear_8" disabled>
+              <b-form-input id="input-gear-8" type="number" step="0.01" v-model="form.inputs.gear_8" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -93,28 +93,28 @@
         <b-row>
           <b-col>
             <b-form-group label="9ª Marcha" label-for="input-gear-9">
-              <b-form-input id="input-gear-9" type="number" step="0.1" v-model="form.inputs.gear_9" disabled>
+              <b-form-input id="input-gear-9" type="number" step="0.01" v-model="form.inputs.gear_9" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="10ª Marcha" label-for="input-gear-10">
-              <b-form-input id="input-gear-10" type="number" step="0.1" v-model="form.inputs.gear_10" disabled>
+              <b-form-input id="input-gear-10" type="number" step="0.01" v-model="form.inputs.gear_10" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="11ª Marcha" label-for="input-gear-11">
-              <b-form-input id="input-gear-11" type="number" step="0.1" v-model="form.inputs.gear_11" disabled>
+              <b-form-input id="input-gear-11" type="number" step="0.01" v-model="form.inputs.gear_11" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="12ª Marcha" label-for="input-gear-12">
-              <b-form-input id="input-gear-12" type="number" step="0.1" v-model="form.inputs.gear_12" disabled>
+              <b-form-input id="input-gear-12" type="number" step="0.01" v-model="form.inputs.gear_12" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
@@ -124,28 +124,28 @@
         <b-row>
           <b-col>
             <b-form-group label="13ª Marcha" label-for="input-gear-13">
-              <b-form-input id="input-gear-13" type="number" step="0.1" v-model="form.inputs.gear_13" disabled>
+              <b-form-input id="input-gear-13" type="number" step="0.01" v-model="form.inputs.gear_13" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="14ª Marcha" label-for="input-gear-14">
-              <b-form-input id="input-gear-14" type="number" step="0.1" v-model="form.inputs.gear_14" disabled>
+              <b-form-input id="input-gear-14" type="number" step="0.01" v-model="form.inputs.gear_14" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="15ª Marcha" label-for="input-gear-15">
-              <b-form-input id="input-gear-15" type="number" step="0.1" v-model="form.inputs.gear_15" disabled>
+              <b-form-input id="input-gear-15" type="number" step="0.01" v-model="form.inputs.gear_15" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>
 
           <b-col>
             <b-form-group label="16ª Marcha" label-for="input-gear-16">
-              <b-form-input id="input-gear-16" type="number" step="0.1" v-model="form.inputs.gear_16" disabled>
+              <b-form-input id="input-gear-16" type="number" step="0.01" v-model="form.inputs.gear_16" disabled>
               </b-form-input>
             </b-form-group>
           </b-col>

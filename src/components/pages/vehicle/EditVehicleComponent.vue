@@ -74,8 +74,14 @@
               </ul>
             </b-form-group>
           </b-col>
+
+          <b-col v-if="select.gearBoxOptions.length === 0">
+            <div class="text-center">
+              <b-spinner variant="secondary" class="m-5"></b-spinner>
+            </div>
+          </b-col>
           
-          <b-col>
+          <b-col v-else>
             <b-form-group label="Caixa de marchas" label-for="input-state">
               <b-form-select v-model="form.inputs.gearbox_id" :options="select.gearBoxOptions" value-field="id" text-field="name"></b-form-select>
               <ul class="text-danger" v-for="(errorMessage, index) in form.errors.gearbox_id" :key="index">

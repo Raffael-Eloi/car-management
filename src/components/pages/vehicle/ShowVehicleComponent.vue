@@ -56,7 +56,7 @@
           
           <b-col>
             <b-form-group label="Caixa de marchas" label-for="input-state">
-              <b-form-select disabled v-model="form.inputs.gearbox_id" :options="select.gearBoxOptions" value-field="id" text-field="name"></b-form-select>
+              <b-form-input disabled v-model="form.inputs.gearbox.name"></b-form-input>
             </b-form-group>
           </b-col>
         </b-row>
@@ -92,7 +92,6 @@
 </template>
 
 <script>
-import api from '../../../api';
 
 export default { 
   name: 'show-vehicle-component',
@@ -101,10 +100,6 @@ export default {
     active: Boolean,
     vehicle: Object,
     close: { tye: Function}
-  },
-
-  mounted() {
-    this.getAllGearBoxes();
   },
 
   created() {
@@ -123,14 +118,6 @@ export default {
         gearBoxOptions: []
       }
     }
-  },
-  
-  methods: {
-    getAllGearBoxes() {
-      api.get('/gearboxes')
-      .then(response => this.select.gearBoxOptions = response.data)
-      .catch(errors => console.log(errors))
-    },
   }
 }
 </script>
