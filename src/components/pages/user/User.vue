@@ -8,7 +8,10 @@
 
       <b-col md="9">
         <b-row class="mt-3" v-if="!isModalOpen()">
-          <b-col md="9">
+          <b-col md="1">
+            <b-button variant="success"><i class="fa-solid fa-filter"></i></b-button>
+          </b-col>
+          <b-col md="8">
             <b-row>
               <b-col md="10">
                 <b-form-input

@@ -1,7 +1,7 @@
 <template>
   <aside style="height: 100vh" class="bg-dark bg-gradient">
     <b-list-group class="p-2">
-      <h5 class="text-light text-center mb-3">Menu de opções</h5>
+      <h5 class="text-light text-center mb-3"><i class="fa-solid fa-bars"></i> Menu de opções</h5>
 
       <router-link :to="{ name: 'user' }">
         <b-list-group-item class="list-item-custom">
