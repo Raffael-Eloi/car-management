@@ -223,7 +223,7 @@ export default {
       const data = this.form.inputs;
 
       api.put(`/customers/${this.form.inputs.id}`, data)
-        .then(this.afterSuccessfulUpdate())
+        .then(response => this.afterSuccessfulUpdate())
         .catch((error) => this.afterErrorUpdate(error));
     },
 

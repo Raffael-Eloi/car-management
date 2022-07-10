@@ -508,7 +508,7 @@ export default {
       const data = this.form.inputs;
 
       api.post("/gearboxes", data)
-        .then(this.afterSuccessfulStore())
+        .then(response => this.afterSuccessfulStore())
         .catch((error) => this.afterErrorStore(error));
     },
 

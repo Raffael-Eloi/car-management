@@ -1,7 +1,7 @@
 <template>
   <b-card class="m-5" v-if="active">
     <b-card-title class="text-center">Cadastro de usuários</b-card-title>
-    <b-form @submit.prevent="storeUser()">
+    <b-form @submit.prevent="verifyPasswordAndStoreUser()">
       <b-row>
         <b-col>
           <b-form-group label="Nome" label-for="input-name">
@@ -285,8 +285,8 @@ export default {
       const data = this.form.inputs;
 
       api.post("/users", data)
-        .then(this.afterSuccessfulStore())
-        .catch((error) => this.afterErrorStore(error));
+      .then(response => this.afterSuccessfulStore())
+      .catch((error) => this.afterErrorStore(error));
     },
 
     afterSuccessfulStore() {

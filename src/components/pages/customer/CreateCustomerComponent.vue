@@ -232,7 +232,7 @@ export default {
       const data = this.form.inputs;
 
       api.post("/customers", data)
-        .then(this.afterSuccessfulStore())
+        .then(response => this.afterSuccessfulStore())
         .catch((error) => this.afterErrorStore(error));
     },
 
