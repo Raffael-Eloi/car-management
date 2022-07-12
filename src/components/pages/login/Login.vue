@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import api from '../../../api';
+
 export default {
   name: "page-login",
 
@@ -68,6 +70,10 @@ export default {
   methods: {
     login() {
       this.form.loading = true;
+
+      api.get()
+      .then()
+      .cat();
     },
   },
 };
