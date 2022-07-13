@@ -14,6 +14,12 @@
           <i class="fa-solid fa-users ms-5"></i> Clientes
         </b-list-group-item>
       </router-link>
+      
+      <router-link :to="{ name: 'owner' }">
+        <b-list-group-item class="list-item-custom">
+          <i class="fa-solid fa-address-card ms-5"></i> Proprietários
+        </b-list-group-item>
+      </router-link>
 
       <router-link :to="{ name: 'vehicle' }">
         <b-list-group-item class="list-item-custom">

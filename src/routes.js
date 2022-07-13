@@ -5,6 +5,7 @@ import Home from '@/components/pages/home/Home.vue';
 import Login from '@/components/pages/login/Login.vue';
 import User from '@/components/pages/user/User.vue';
 import Customer from '@/components/pages/customer/Customer.vue';
+import Owner from '@/components/pages/owner/Owner.vue';
 import Vehicle from '@/components/pages/vehicle/Vehicle.vue';
 import Gearbox from '@/components/pages/gearbox/Gearbox.vue';
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/clientes',
     name: 'customer',
     component: Customer
+  },
+  {
+    path: '/proprietarios',
+    name: 'owner',
+    component: Owner
   },
   {
     path: '/veiculos',

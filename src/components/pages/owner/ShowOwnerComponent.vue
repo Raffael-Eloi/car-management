@@ -132,7 +132,7 @@
 
 <script>
 export default {
-  name: "show-customer-component",
+  name: "show-owner-component",
 
   props: {
     active: Boolean,
