@@ -41,7 +41,7 @@ const routes = [
     component: Vehicle
   },
   {
-    path: '/caixa-de-marchars',
+    path: '/caixa-de-marchas',
     name: 'gearbox',
     component: Gearbox
   },

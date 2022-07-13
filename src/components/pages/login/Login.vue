@@ -15,6 +15,7 @@
                 type="email"
                 v-model="form.inputs.email"
                 placeholder="Digite seu e-mail"
+                :class="form.errors.login ? 'has-error-custom' : ''"
               >
               </b-form-input>
             </b-form-group>
@@ -26,8 +27,16 @@
                 autocomplete="on"
                 v-model="form.inputs.password"
                 placeholder="Digite sua senha"
-                required
+                :class="form.errors.login ? 'has-error-custom' : ''"
               ></b-form-input>
+
+              <ul
+                class="text-danger mt-3"
+                v-for="(errorMessage, index) in form.errors.login"
+                :key="index"
+              >
+                <li class="fs-6">{{ errorMessage }}</li>
+              </ul>
             </b-form-group>
 
             <div class="d-grid gap-2">
@@ -35,7 +44,7 @@
                 type="submit"
                 variant="success"
                 @click.prevent="login()"
-                :disabled="form.loading"
+                :disabled="form.loading || (!this.form.inputs.email || !this.form.inputs.password)"
                 >Entrar <i class="fa-solid fa-arrow-right-to-bracket"></i
               ></b-button>
             </div>
@@ -54,6 +63,7 @@
 
 <script>
 import api from '../../../api';
+import router from '../../../routes.js';
 
 export default {
   name: "page-login",
@@ -62,6 +72,7 @@ export default {
     return {
       form: {
         inputs: {},
+        errors: {},
         loading: false,
       },
     };
@@ -70,14 +81,29 @@ export default {
   methods: {
     login() {
       this.form.loading = true;
+      const data = this.form.inputs;
+            
+      api.post('/login', data)
+      .then(response => this.afterSuccessfulLogin(response.data.authorisation.token))
+      .catch(errors => this.afterErrorLogin())
+    },
 
-      api.get()
-      .then()
-      .cat();
+    afterSuccessfulLogin (token) {
+      localStorage.clear();
+      localStorage.setItem(token, token);
+      router.push({ name: 'home'});
+    },
+
+    afterErrorLogin () {
+      this.form.loading = false;
+      this.form.errors.login = ["Login inválido"];
     },
   },
 };
 </script>
 
 <style scoped>
+.has-error-custom {
+  border-color: red;
+}
 </style>
