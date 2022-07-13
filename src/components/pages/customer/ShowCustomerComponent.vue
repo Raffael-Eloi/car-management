@@ -57,6 +57,32 @@
 
       <b-row>
         <b-col>
+          <b-form-group label="Contrato Social" label-for="input-social-contract">
+            <b-form-input
+              id="input-social-contract"
+              type="text"
+              v-model="form.inputs.social_contract"
+              disabled
+            >
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group label="Contato" label-for="input-contact">
+            <b-form-input
+              id="input-contact"
+              type="text"
+              v-model="form.inputs.contact"
+              disabled
+            >
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
           <b-form-group label="Endereço" label-for="input-address">
             <b-form-input
               id="input-address"

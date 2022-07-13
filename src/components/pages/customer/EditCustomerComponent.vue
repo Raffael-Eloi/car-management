@@ -93,6 +93,50 @@
 
       <b-row>
         <b-col>
+          <b-form-group label="Contrato Social" label-for="input-social-contract">
+            <b-form-input
+              id="input-social-contract"
+              type="text"
+              v-model="form.inputs.social_contract"
+              placeholder="Digite o contrato social"
+              :class="form.errors.social_contract ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.social_contract"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group label="Contato" label-for="input-contact">
+            <b-form-input
+              id="input-contact"
+              type="text"
+              v-maska="'(##) #####-####'"
+              v-model="form.inputs.contact"
+              placeholder="Digite o contato"
+              :class="form.errors.contact ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.contact"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
           <b-form-group label="Endereço" label-for="input-address">
             <b-form-input
               id="input-address"
