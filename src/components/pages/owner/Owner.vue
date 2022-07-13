@@ -236,7 +236,7 @@ export default {
     },
 
     deleteOwner(id) {
-      api.delete(`/owner/${id}`)
+      api.delete(`/owners/${id}`)
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;
