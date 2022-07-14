@@ -84,13 +84,14 @@ export default {
       const data = this.form.inputs;
             
       api.post('/login', data)
-      .then(response => this.afterSuccessfulLogin(response.data.authorisation.token))
+      .then(response => this.afterSuccessfulLogin(response.data))
       .catch(errors => this.afterErrorLogin())
     },
 
-    afterSuccessfulLogin (token) {
+    afterSuccessfulLogin (response) {
       localStorage.clear();
-      localStorage.setItem(token, token);
+      localStorage.setItem("token", response.authorisation.token);
+      localStorage.setItem("userId", response.user.id);
       router.push({ name: 'home'});
     },
 

@@ -137,6 +137,7 @@ import Sidebar from "../../shared/sidebar/Sidebar.vue";
 import CreateOwnerComponent from "./CreateOwnerComponent.vue";
 import ShowOwnerComponent from "./ShowOwnerComponent.vue";
 import EditOwnerComponent from "./EditOwnerComponent.vue";
+import router from '../../../routes.js';
 import api from "../../../api";
 
 export default {
@@ -148,6 +149,10 @@ export default {
     "create-owner-component": CreateOwnerComponent,
     "show-owner-component": ShowOwnerComponent,
     "edit-owner-component": EditOwnerComponent,
+  },
+
+  beforeMount() {
+    this.authUser();
   },
 
   mounted() {
@@ -169,10 +174,41 @@ export default {
       loading: true,
 
       owner: {},
+
+      userId: '',
+      token: ''
     };
   },
 
   methods: {
+    authUser () {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+
+      if (!userId && !token) router.push({name: 'login'});
+      else {
+        this.currentUserId = userId;
+        this.token = token;
+        this.getCurrentUser();
+      }
+    },
+
+    getCurrentUser() {
+      api.get(`users/${this.currentUserId}`,{
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
+      .then(response => {})
+      .catch(errors => this.afterAuthError(errors));
+    },
+    
+    afterAuthError (errors) {
+      if (errors.response.statusText === "Unauthorized") router.push({name: 'login'});
+    },
+    
     isModalOpen() {
       if (
         this.modal.openCreateOwnerModal ||
