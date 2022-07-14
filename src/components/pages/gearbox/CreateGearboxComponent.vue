@@ -475,6 +475,7 @@ export default {
 
   props: {
     active: Boolean,
+    token: String,
     close: { tye: Function },
   },
 
@@ -507,9 +508,15 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.post("/gearboxes", data)
+      api.post("/gearboxes", data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then(response => this.afterSuccessfulStore())
-        .catch((error) => this.afterErrorStore(error));
+        .catch(error => this.afterErrorStore(error));
     },
 
     afterSuccessfulStore() {

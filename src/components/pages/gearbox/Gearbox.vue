@@ -111,6 +111,7 @@
             <create-gearbox-component
               :active="modal.openCreateGearboxModal"
               :close="closeModalCreateGearbox"
+              :token="token"
             />
             <show-gearbox-component
               :active="modal.openShowGearboxModal"
@@ -121,6 +122,7 @@
               :active="modal.openEditGearboxModal"
               :gearbox="gearbox"
               :close="closeModalEditGearbox"
+              :token="token"
             />
           </b-col>
         </b-row>
@@ -242,7 +244,13 @@ export default {
 
     getGerBoxes() {
       this.loading = true;
-      api.get("/gearboxes")
+      api.get("/gearboxes", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.table.data = response.data;
           this.loading = false;
@@ -270,7 +278,13 @@ export default {
     },
 
     deleteGearbox(id) {
-      api.delete(`/gearboxes/${id}`)
+      api.delete(`/gearboxes/${id}`, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;
