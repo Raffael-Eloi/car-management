@@ -196,6 +196,7 @@ export default {
   props: {
     active: Boolean,
     user: Object,
+    token: String,
     close: { tye: Function },
   },
 
@@ -222,7 +223,13 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.put(`/users/${this.form.inputs.id}`, data)
+      api.put(`/users/${this.form.inputs.id}`, data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => this.afterSuccessfulUpdate())
         .catch((error) => this.afterErrorUpdate(error));
     },

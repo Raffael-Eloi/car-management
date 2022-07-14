@@ -113,6 +113,7 @@
           <b-col v-if="isModalOpen()">
             <create-user-component
               :active="modal.openCreateUserModal"
+              :token="token"
               :close="closeModalCreateUser"
             />
             <show-user-component
@@ -123,6 +124,7 @@
             <edit-user-component
               :active="modal.openEditUserModal"
               :user="user"
+              :token="token"
               :close="closeModalEditUser"
             />
           </b-col>
@@ -246,7 +248,13 @@ export default {
 
     getUsers() {
       this.loading = true;
-      api.get("/users")
+      api.get("/users", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.table.data = response.data;
           this.loading = false;
@@ -274,7 +282,13 @@ export default {
     },
 
     deleteUser(id) {
-      api.delete(`/users/${id}`)
+      api.delete(`/users/${id}`, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;
