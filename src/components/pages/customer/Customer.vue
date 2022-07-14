@@ -113,6 +113,7 @@
             <create-customer-component
               :active="modal.openCreateCustomerModal"
               :close="closeModalCreateCustomer"
+              :token="token"
             />
             <show-customer-component
               :active="modal.openShowCustomerModal"
@@ -123,6 +124,7 @@
               :active="modal.openEditCustomerModal"
               :customer="customer"
               :close="closeModalEditCustomer"
+              :token="token"
             />
           </b-col>
         </b-row>
@@ -245,7 +247,13 @@ export default {
 
     getCustomer() {
       this.loading = true;
-      api.get("/customers")
+      api.get("/customers", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.table.data = response.data;
           this.loading = false;
@@ -272,7 +280,13 @@ export default {
     },
 
     deleteCustomer(id) {
-      api.delete(`/customers/${id}`)
+      api.delete(`/customers/${id}`, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;

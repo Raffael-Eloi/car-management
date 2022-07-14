@@ -240,6 +240,7 @@ export default {
   props: {
     active: Boolean,
     customer: Object,
+    token: String,
     close: { tye: Function },
   },
 
@@ -266,7 +267,13 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.put(`/customers/${this.form.inputs.id}`, data)
+      api.put(`/customers/${this.form.inputs.id}`, data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then(response => this.afterSuccessfulUpdate())
         .catch((error) => this.afterErrorUpdate(error));
     },
