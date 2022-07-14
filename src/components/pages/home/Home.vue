@@ -6,7 +6,7 @@
         <sidebar-component />
       </b-col>
       <b-col md="9" class="mt-5">
-        <h4 class="text-center">Seja bem vindo, {{ user.name }} !</h4>
+        <h4 class="text-center">Seja bem vindo(a), {{ user.name }} !</h4>
         <h5 class="text-center">
           Selecione o que deseja fazer no menu lateral.
         </h5>
