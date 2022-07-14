@@ -263,6 +263,7 @@ export default {
   props: {
     active: Boolean,
     vehicle: Object,
+    token: String,
     close: { tye: Function },
   },
 
@@ -294,13 +295,25 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.put(`/vehicles/${this.form.inputs.id}`, data)
+      api.put(`/vehicles/${this.form.inputs.id}`, data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => this.afterSuccessfulUpdate())
         .catch((errors) => this.afterErrorUpdate(errors));
     },
 
     getAllGearBoxes() {
-      api.get("/gearboxes")
+      api.get("/gearboxes", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => (this.select.gearBoxOptions = response.data))
         .catch((errors) => console.log(errors));
     },

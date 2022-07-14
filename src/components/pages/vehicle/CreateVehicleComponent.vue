@@ -256,6 +256,7 @@ export default {
 
   props: {
     active: Boolean,
+    token: String,
     close: { tye: Function },
   },
 
@@ -287,13 +288,25 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.post("/vehicles", data)
+      api.post("/vehicles", data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => this.afterSuccessfulStore())
         .catch((errors) => this.afterErrorStore(errors));
     },
 
     getAllGearBoxes() {
-      api.get("/gearboxes")
+      api.get("/gearboxes", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => (this.select.gearBoxOptions = response.data))
         .catch((errors) => console.log(errors));
     },

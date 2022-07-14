@@ -114,6 +114,7 @@
           <b-col v-if="isModalOpen()">
             <create-vehicle-component
               :active="modal.openCreateVehicleModal"
+              :token="token"
               :close="closeModalCreateVehicle"
             />
             <show-vehicle-component
@@ -124,6 +125,7 @@
             <edit-vehicle-component
               :active="modal.openEditVehicleModal"
               :vehicle="vehicle"
+              :token="token"
               :close="closeModalEditVehicle"
             />
           </b-col>
@@ -246,7 +248,13 @@ export default {
 
     getVehicles() {
       this.loading = true;
-      api.get("/vehicles")
+      api.get("/vehicles", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.table.data = response.data;
           this.loading = false;
@@ -274,7 +282,13 @@ export default {
     },
 
     deleteVehicle(id) {
-      api.delete(`/vehicles/${id}`)
+      api.delete(`/vehicles/${id}`, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;
