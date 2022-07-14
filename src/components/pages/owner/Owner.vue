@@ -113,6 +113,7 @@
             <create-owner-component
               :active="modal.openCreateOwnerModal"
               :close="closeModalCreateOwner"
+              :token="token"
             />
             <show-owner-component
               :active="modal.openShowOwnerModal"
@@ -123,6 +124,7 @@
               :active="modal.openEditOwnerModal"
               :owner="owner"
               :close="closeModalEditOwner"
+              :token="token"
             />
           </b-col>
         </b-row>
@@ -194,7 +196,7 @@ export default {
     },
 
     getCurrentUser() {
-      api.get(`users/${this.currentUserId}`,{
+      api.get(`users/${this.currentUserId}`, {
         headers: {
           common: {
             Authorization: `Bearer ${this.token}`,
@@ -245,7 +247,13 @@ export default {
 
     getOwners() {
       this.loading = true;
-      api.get("/owners")
+      api.get("/owners", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.table.data = response.data;
           this.loading = false;
@@ -272,7 +280,13 @@ export default {
     },
 
     deleteOwner(id) {
-      api.delete(`/owners/${id}`)
+      api.delete(`/owners/${id}`, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;

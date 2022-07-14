@@ -553,6 +553,7 @@ export default {
 
   props: {
     active: Boolean,
+    token: String,
     close: { tye: Function },
   },
 
@@ -589,7 +590,13 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.post("/owners", data)
+      api.post("/owners", data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then(response => this.afterSuccessfulStore())
         .catch((error) => this.afterErrorStore(error));
     },

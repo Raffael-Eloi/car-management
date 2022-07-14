@@ -554,6 +554,7 @@ export default {
   props: {
     active: Boolean,
     owner: Object,
+    token: String,
     close: { tye: Function },
   },
 
@@ -580,7 +581,13 @@ export default {
       this.form.loading = true;
       const data = this.form.inputs;
 
-      api.put(`/owners/${this.form.inputs.id}`, data)
+      api.put(`/owners/${this.form.inputs.id}`, data, {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
         .then(response => this.afterSuccessfulUpdate())
         .catch((error) => this.afterErrorUpdate(error));
     },
@@ -608,4 +615,7 @@ export default {
 </script>
 
 <style scoped>
+.has-error-custom {
+  border-color: red;
+}
 </style>
