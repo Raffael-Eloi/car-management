@@ -409,6 +409,28 @@
           </b-form-group>
         </b-col>
       </b-row>
+      
+      <b-row>
+        <b-col>
+          <b-form-group label="Cliente associado" label-for="input-customer">
+            <b-form-select
+              id="input-customer"
+              v-model="form.inputs.customer_id"
+              :options="select.customersOptions"
+              value-field="id"
+              text-field="name"
+              :state="form.errors.customer_id ? !(form.errors.customer_id !== undefined) : null"
+            ></b-form-select>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.customer_id"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+      </b-row>
 
       <div class="text-center" v-if="form.loading">
         <b-spinner variant="secondary" class="m-5"></b-spinner>
@@ -457,6 +479,7 @@ export default {
   mounted() {
     this.getAllGearBoxes();
     this.getOwners();
+    this.getCustomers();
   },
 
   created() {
@@ -475,6 +498,7 @@ export default {
         yearModelOptions: yearModelList,
         gearBoxOptions: [],
         ownersOptions: [],
+        customersOptions: [],
       },
     };
   },
@@ -517,6 +541,19 @@ export default {
       })
       .then(response => this.select.ownersOptions = response.data)
       .catch(errors => console.log(errors));
+    },
+
+    getCustomers() {
+      this.loading = true;
+      api.get("/customers", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        }
+      })
+        .then((response) => this.select.customersOptions = response.data)
+        .catch((error) => console.log(error));
     },
 
     afterSuccessfulStore() {

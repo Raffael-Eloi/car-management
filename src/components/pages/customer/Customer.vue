@@ -17,7 +17,7 @@
                 ></b-form-input>
               </b-col>
               <b-col md="2">
-                <b-button variant="success" @click="getCustomer()"
+                <b-button variant="success" @click="getCustomers()"
                   ><i class="fa-solid fa-magnifying-glass"></i
                 ></b-button>
               </b-col>
@@ -38,7 +38,7 @@
 
         <b-row class="px-5 mt-5" v-if="!isModalOpen()">
           <b-col md="4">
-            <b-button variant="secondary" @click="getCustomer()">
+            <b-button variant="secondary" @click="getCustomers()">
               Atualizar tabela <i class="fa-solid fa-arrows-rotate"></i>
             </b-button>
           </b-col>
@@ -169,7 +169,7 @@ export default {
   },
 
   mounted() {
-    this.getCustomer();
+    this.getCustomers();
   },
 
   data() {
@@ -251,7 +251,7 @@ export default {
 
     closeModalCreateCustomer() {
       this.modal.openCreateCustomerModal = false;
-      this.getCustomer();
+      this.getCustomers();
     },
 
     closeModalShowCustomer() {
@@ -260,14 +260,14 @@ export default {
 
     closeModalEditCustomer() {
       this.modal.openEditCustomerModal = false;
-      this.getCustomer();
+      this.getCustomers();
     },
 
     closeModalShowCarAssociated() {
       this.modal.openCarsAssociatedModel = false;
     },
 
-    getCustomer() {
+    getCustomers() {
       this.loading = true;
       api.get("/customers", {
         headers: {
@@ -312,7 +312,7 @@ export default {
         .then((response) => {
           this.showSuccessfulDeleteMessage();
           this.loading = false;
-          this.getCustomer();
+          this.getCustomers();
         })
         .catch((error) => error);
     },

@@ -260,12 +260,33 @@
         <b-col>
           <b-form-group label="Proprietário" label-for="input-owner">
             <b-form-input
-              type="text"
               id="input-owner"
+              type="text"
               v-model="form.inputs.owner.name"
               disabled
             >
             </b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <b-form-group label="Cliente associado" label-for="input-customer">
+            <b-form-input 
+              v-if="(form.inputs.customer && form.inputs.customer.name)"
+              id="input-customer"
+              type="text"
+              v-model="form.inputs.customer.name"
+              disabled
+            ></b-form-input>
+            <b-form-input 
+              v-else
+              id="input-customer"
+              type="text"
+              v-model="form.inputs.customer"
+              disabled
+            ></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
