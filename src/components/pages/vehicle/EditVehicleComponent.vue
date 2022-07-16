@@ -222,6 +222,206 @@
         </b-col>
       </b-row>
 
+      <b-row>
+        <b-col>
+          <b-form-group
+            label="Peso (tara)"
+            label-for="input-weight"
+          >
+            <b-form-input
+              id="input-weight"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.weight"
+              placeholder="Digite o peso"
+              :class="form.errors.weight ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.weight"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group
+            label="Potência"
+            label-for="input-potency"
+          >
+            <b-form-input
+              id="input-potency"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.potency"
+              placeholder="Digite a potência"
+              :class="form.errors.potency ? 'has-error-custom' : ''"
+            ></b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.potency"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      
+      <b-row>
+        <b-col>
+          <b-form-group
+            label="Balanço dianteiro"
+            label-for="input-front_balance"
+          >
+            <b-form-input
+              id="input-front_balance"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.front_balance"
+              placeholder="Digite o balanço dianteiro"
+              :class="form.errors.front_balance ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.front_balance"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group
+            label="Balanço traseiro"
+            label-for="input-back_balance"
+          >
+            <b-form-input
+              id="input-back_balance"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.back_balance"
+              placeholder="Digite o balanço traseiro"
+              :class="form.errors.back_balance ? 'has-error-custom' : ''"
+            ></b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.back_balance"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <b-form-group
+            label="Entre eixos"
+            label-for="input-between_axles_first"
+          >
+            <b-form-input
+              id="input-between_axles_first"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.between_axles_first"
+              placeholder="Digite o valor entre eixos"
+              :class="form.errors.between_axles_first ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.between_axles_first"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+        
+        <b-col>
+          <b-form-group
+            label="Entre eixos"
+            label-for="input-between_axles_second"
+          >
+            <b-form-input
+              id="input-between_axles_second"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.between_axles_second"
+              placeholder="Digite o valor entre eixos"
+              :class="form.errors.between_axles_second ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.between_axles_second"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group
+            label="Entre eixos"
+            label-for="input-between_axles_third"
+          >
+            <b-form-input
+              id="input-between_axles_third"
+              type="number"
+              step="0.01"
+              v-model="form.inputs.between_axles_third"
+              placeholder="Digite o valor entre eixos"
+              :class="form.errors.between_axles_third ? 'has-error-custom' : ''"
+            >
+            </b-form-input>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.between_axles_third"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col v-if="select.gearBoxOptions.length === 0">
+          <div class="text-center">
+            <b-spinner variant="secondary" class="m-5"></b-spinner>
+          </div>
+        </b-col>
+
+        <b-col v-else>
+          <b-form-group label="Proprietário" label-for="input-owner">
+            <b-form-select
+              id="input-owner"
+              v-model="form.inputs.owner_id"
+              :options="select.ownersOptions"
+              value-field="id"
+              text-field="name"
+              :class="form.errors.owner_id ? 'has-error-custom' : ''"
+            ></b-form-select>
+            <ul
+              class="text-danger"
+              v-for="(errorMessage, index) in form.errors.owner_id"
+              :key="index"
+            >
+              <li class="fs-6">{{ errorMessage }}</li>
+            </ul>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
       <div class="text-center" v-if="form.loading">
         <b-spinner variant="secondary" class="m-5"></b-spinner>
       </div>
