@@ -8,9 +8,9 @@
             <b-form-input
               id="input-brand"
               type="text"
+              :state="form.errors.brand ? !(form.errors.brand !== undefined) : null"
               v-model="form.inputs.brand"
               placeholder="Digite a marca"
-              :class="form.errors.brand ? 'has-error-custom' : ''"
             >
             </b-form-input>
             <ul
@@ -30,7 +30,7 @@
               type="text"
               v-model="form.inputs.model"
               placeholder="Digite o modelo"
-              :class="form.errors.model ? 'has-error-custom' : ''"
+             :state="form.errors.model ? !(form.errors.model !== undefined) : null"
             ></b-form-input>
             <ul
               class="text-danger"
@@ -51,7 +51,7 @@
               type="text"
               v-model="form.inputs.license_plate"
               placeholder="Digite a placa"
-              :class="form.errors.license_plate ? 'has-error-custom' : ''"
+              :state="form.errors.license_plate ? !(form.errors.license_plate !== undefined) : null"
             ></b-form-input>
             <ul
               class="text-danger"
@@ -69,7 +69,7 @@
               id="input-year-model"
               v-model="form.inputs.year_model"
               :options="select.yearModelOptions"
-              :class="form.errors.year_model ? 'has-error-custom' : ''"
+              :state="form.errors.year_model ? !(form.errors.year_model !== undefined) : null"
             ></b-form-select>
             <ul
               class="text-danger"
@@ -90,7 +90,7 @@
               type="text"
               v-model="form.inputs.color"
               placeholder="Digite a cor"
-              :class="form.errors.color ? 'has-error-custom' : ''"
+              :state="form.errors.color ? !(form.errors.color !== undefined) : null"
             ></b-form-input>
             <ul
               class="text-danger"
@@ -112,7 +112,7 @@
               type="number"
               v-model="form.inputs.axle_quantity"
               placeholder="Digite a quantidade de eixos"
-              :class="form.errors.axle_quantity ? 'has-error-custom' : ''"
+              :state="form.errors.axle_quantity ? !(form.errors.axle_quantity !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -134,7 +134,7 @@
               type="number"
               v-model="form.inputs.torque"
               placeholder="Digite o torque"
-              :class="form.errors.torque ? 'has-error-custom' : ''"
+              :state="form.errors.torque ? !(form.errors.torque !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -154,7 +154,7 @@
               :options="select.gearBoxOptions"
               value-field="id"
               text-field="name"
-              :class="form.errors.gearbox_id ? 'has-error-custom' : ''"
+              :state="form.errors.gearbox_id ? !(form.errors.gearbox_id !== undefined) : null"
             ></b-form-select>
             <ul
               class="text-danger"
@@ -179,7 +179,7 @@
               step="0.01"
               v-model="form.inputs.relation_first_gear"
               placeholder="Digite a relação"
-              :class="form.errors.relation_first_gear ? 'has-error-custom' : ''"
+              :state="form.errors.relation_first_gear ? !(form.errors.relation_first_gear !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -203,7 +203,7 @@
               step="0.01"
               v-model="form.inputs.axle_differential"
               placeholder="Digite a relação diferencial"
-              :class="form.errors.axle_differential ? 'has-error-custom' : ''"
+              :state="form.errors.axle_differential ? !(form.errors.axle_differential !== undefined) : null"
             ></b-form-input>
             <ul
               class="text-danger"
@@ -228,7 +228,7 @@
               step="0.01"
               v-model="form.inputs.weight"
               placeholder="Digite o peso"
-              :class="form.errors.weight ? 'has-error-custom' : ''"
+              :state="form.errors.weight ? !(form.errors.weight !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -252,7 +252,7 @@
               step="0.01"
               v-model="form.inputs.potency"
               placeholder="Digite a potência"
-              :class="form.errors.potency ? 'has-error-custom' : ''"
+              :state="form.errors.potency ? !(form.errors.potency !== undefined) : null"
             ></b-form-input>
             <ul
               class="text-danger"
@@ -277,7 +277,7 @@
               step="0.01"
               v-model="form.inputs.front_balance"
               placeholder="Digite o balanço dianteiro"
-              :class="form.errors.front_balance ? 'has-error-custom' : ''"
+              :state="form.errors.front_balance ? !(form.errors.front_balance !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -301,7 +301,7 @@
               step="0.01"
               v-model="form.inputs.back_balance"
               placeholder="Digite o balanço traseiro"
-              :class="form.errors.back_balance ? 'has-error-custom' : ''"
+              :state="form.errors.back_balance ? !(form.errors.back_balance !== undefined) : null"
             ></b-form-input>
             <ul
               class="text-danger"
@@ -326,7 +326,7 @@
               step="0.01"
               v-model="form.inputs.between_axles_first"
               placeholder="Digite o valor entre eixos"
-              :class="form.errors.between_axles_first ? 'has-error-custom' : ''"
+              :state="form.errors.between_axles_first ? !(form.errors.between_axles_first !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -350,7 +350,7 @@
               step="0.01"
               v-model="form.inputs.between_axles_second"
               placeholder="Digite o valor entre eixos"
-              :class="form.errors.between_axles_second ? 'has-error-custom' : ''"
+              :state="form.errors.between_axles_second ? !(form.errors.between_axles_second !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -374,7 +374,7 @@
               step="0.01"
               v-model="form.inputs.between_axles_third"
               placeholder="Digite o valor entre eixos"
-              :class="form.errors.between_axles_third ? 'has-error-custom' : ''"
+              :state="form.errors.between_axles_third ? !(form.errors.between_axles_third !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -397,7 +397,7 @@
               :options="select.ownersOptions"
               value-field="id"
               text-field="name"
-              :class="form.errors.owner_id ? 'has-error-custom' : ''"
+              :state="form.errors.owner_id ? !(form.errors.owner_id !== undefined) : null"
             ></b-form-select>
             <ul
               class="text-danger"
@@ -544,7 +544,4 @@ export default {
 </script>
 
 <style scoped>
-.has-error-custom {
-  border-color: red;
-}
 </style>
