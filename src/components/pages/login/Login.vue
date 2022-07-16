@@ -15,7 +15,7 @@
                 type="email"
                 v-model="form.inputs.email"
                 placeholder="Digite seu e-mail"
-                :class="form.errors.login ? 'has-error-custom' : ''"
+                :state="form.errors.login ? !(form.errors.login !== undefined) : null"
               >
               </b-form-input>
             </b-form-group>
@@ -27,7 +27,7 @@
                 autocomplete="on"
                 v-model="form.inputs.password"
                 placeholder="Digite sua senha"
-                :class="form.errors.login ? 'has-error-custom' : ''"
+                :state="form.errors.login ? !(form.errors.login !== undefined) : null"
               ></b-form-input>
 
               <ul
@@ -104,7 +104,4 @@ export default {
 </script>
 
 <style scoped>
-.has-error-custom {
-  border-color: red;
-}
 </style>

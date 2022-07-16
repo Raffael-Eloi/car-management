@@ -244,6 +244,7 @@ export default {
 
     closeModalEditVehicle() {
       this.modal.openEditVehicleModal = false;
+      this.getVehicles();
     },
 
     getVehicles() {

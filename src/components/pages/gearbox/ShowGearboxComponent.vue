@@ -311,7 +311,4 @@ export default {
 </script>
 
 <style scoped>
-.has-error-custom {
-  border-color: red;
-}
 </style>

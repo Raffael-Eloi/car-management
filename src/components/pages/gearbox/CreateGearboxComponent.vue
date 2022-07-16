@@ -12,7 +12,7 @@
               type="text"
               v-model="form.inputs.name"
               placeholder="Digite o nome da caixa de marcha"
-              :class="form.errors.name ? 'has-error-custom' : ''"
+              :state="form.errors.name ? !(form.errors.name !== undefined) : null"
             >
             </b-form-input>
 
@@ -36,7 +36,7 @@
               step="0.01"
               v-model="form.inputs.cl"
               placeholder="Digite o CL"
-              :class="form.errors.cl ? 'has-error-custom' : ''"
+              :state="form.errors.cl ? !(form.errors.cl !== undefined) : null"
             >
             </b-form-input>
 
@@ -58,7 +58,7 @@
               step="0.01"
               v-model="form.inputs.cr"
               placeholder="Digite o CR"
-              :class="form.errors.cr ? 'has-error-custom' : ''"
+              :state="form.errors.cr ? !(form.errors.cr !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -82,7 +82,7 @@
               step="0.01"
               v-model="form.inputs.gear_1"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_1 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_1 ? !(form.errors.gear_1 !== undefined) : null"
             >
             </b-form-input>
 
@@ -104,7 +104,7 @@
               step="0.01"
               v-model="form.inputs.gear_2"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_2 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_2 ? !(form.errors.gear_2 !== undefined) : null"
             >
             </b-form-input>
 
@@ -126,7 +126,7 @@
               step="0.01"
               v-model="form.inputs.gear_3"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_3 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_3 ? !(form.errors.gear_3 !== undefined) : null"
             >
             </b-form-input>
 
@@ -148,7 +148,7 @@
               step="0.01"
               v-model="form.inputs.gear_4"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_4 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_4 ? !(form.errors.gear_4 !== undefined) : null"
             >
             </b-form-input>
 
@@ -166,14 +166,14 @@
       <!-- Gear: 5 to 8 -->
       <b-row>
         <b-col>
-          <b-form-group label="5ª Marcha" label-for="input-gear-4">
+          <b-form-group label="5ª Marcha" label-for="input-gear-5">
             <b-form-input
-              id="input-gear-4"
+              id="input-gear-5"
               type="number"
               step="0.01"
               v-model="form.inputs.gear_5"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_5 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_5 ? !(form.errors.gear_5 !== undefined) : null"
             >
             </b-form-input>
 
@@ -195,7 +195,7 @@
               step="0.01"
               v-model="form.inputs.gear_6"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_6 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_6 ? !(form.errors.gear_6 !== undefined) : null"
             >
             </b-form-input>
 
@@ -217,7 +217,7 @@
               step="0.01"
               v-model="form.inputs.gear_7"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_7 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_7 ? !(form.errors.gear_7 !== undefined) : null"
             >
             </b-form-input>
 
@@ -239,7 +239,7 @@
               step="0.01"
               v-model="form.inputs.gear_8"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_8 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_8 ? !(form.errors.gear_8 !== undefined) : null"
             >
             </b-form-input>
 
@@ -264,7 +264,7 @@
               step="0.01"
               v-model="form.inputs.gear_9"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_9 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_9 ? !(form.errors.gear_9 !== undefined) : null"
             >
             </b-form-input>
 
@@ -286,7 +286,7 @@
               step="0.01"
               v-model="form.inputs.gear_10"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_10 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_10 ? !(form.errors.gear_10 !== undefined) : null"
             >
             </b-form-input>
 
@@ -308,7 +308,7 @@
               step="0.01"
               v-model="form.inputs.gear_11"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_11 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_11 ? !(form.errors.gear_11 !== undefined) : null"
             >
             </b-form-input>
 
@@ -330,7 +330,7 @@
               step="0.01"
               v-model="form.inputs.gear_12"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_12 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_12 ? !(form.errors.gear_12 !== undefined) : null"
             >
             </b-form-input>
 
@@ -355,7 +355,7 @@
               step="0.01"
               v-model="form.inputs.gear_13"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_13 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_13 ? !(form.errors.gear_13 !== undefined) : null"
             >
             </b-form-input>
 
@@ -377,7 +377,7 @@
               step="0.01"
               v-model="form.inputs.gear_14"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_14 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_14 ? !(form.errors.gear_14 !== undefined) : null"
             >
             </b-form-input>
 
@@ -399,7 +399,7 @@
               step="0.01"
               v-model="form.inputs.gear_15"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_15 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_15 ? !(form.errors.gear_15 !== undefined) : null"
             >
             </b-form-input>
 
@@ -421,7 +421,7 @@
               step="0.01"
               v-model="form.inputs.gear_16"
               placeholder="Digite a marcha"
-              :class="form.errors.gear_16 ? 'has-error-custom' : ''"
+              :state="form.errors.gear_16 ? !(form.errors.gear_16 !== undefined) : null"
             >
             </b-form-input>
 
@@ -546,7 +546,4 @@ export default {
 </script>
 
 <style scoped>
-.has-error-custom {
-  border-color: red;
-}
 </style>

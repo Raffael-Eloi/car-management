@@ -10,7 +10,7 @@
               type="text"
               v-model="form.inputs.name"
               placeholder="Digite o nome"
-              :class="form.errors.name ? 'has-error-custom' : ''"
+              :state="form.errors.name ? !(form.errors.name !== undefined) : null"
             >
             </b-form-input>
 
@@ -32,7 +32,7 @@
               type="text"
               v-model="form.inputs.document"
               placeholder="Digite o documento"
-              :class="form.errors.document ? 'has-error-custom' : ''"
+              :state="form.errors.document ? !(form.errors.document !== undefined) : null"
             >
             </b-form-input>
 
@@ -55,7 +55,7 @@
               type="email"
               v-model="form.inputs.email"
               placeholder="Digite o e-mail"
-              :class="form.errors.email ? 'has-error-custom' : ''"
+              :state="form.errors.email ? !(form.errors.email !== undefined) : null"
             >
             </b-form-input>
 
@@ -77,7 +77,7 @@
               type="text"
               v-model="form.inputs.phone"
               placeholder="Digite o telefone"
-              :class="form.errors.phone ? 'has-error-custom' : ''"
+              :state="form.errors.phone ? !(form.errors.phone !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -99,7 +99,7 @@
               type="text"
               v-model="form.inputs.social_contract"
               placeholder="Digite o contrato social"
-              :class="form.errors.social_contract ? 'has-error-custom' : ''"
+              :state="form.errors.social_contract ? !(form.errors.social_contract !== undefined) : null"
             >
             </b-form-input>
 
@@ -121,7 +121,7 @@
               v-maska="'(##) #####-####'"
               v-model="form.inputs.contact"
               placeholder="Digite o contato"
-              :class="form.errors.contact ? 'has-error-custom' : ''"
+              :state="form.errors.contact ? !(form.errors.contact !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -143,7 +143,7 @@
               type="text"
               v-model="form.inputs.address"
               placeholder="Digite o endereço"
-              :class="form.errors.address ? 'has-error-custom' : ''"
+              :state="form.errors.address ? !(form.errors.address !== undefined) : null"
             >
             </b-form-input>
 
@@ -166,7 +166,7 @@
               type="text"
               v-model="form.inputs.city"
               placeholder="Digite a cidade"
-              :class="form.errors.city ? 'has-error-custom' : ''"
+              :state="form.errors.city ? !(form.errors.city !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -184,7 +184,7 @@
             <b-form-select
               v-model="form.inputs.state"
               :options="select.stateOptions"
-              :class="form.errors.state ? 'has-error-custom' : ''"
+              :state="form.errors.state ? !(form.errors.state !== undefined) : null"
             >
             </b-form-select>
 
