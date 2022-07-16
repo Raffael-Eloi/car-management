@@ -10,7 +10,7 @@
               type="text"
               v-model="form.inputs.name"
               placeholder="Digite o nome"
-              :class="form.errors.name ? 'has-error-custom' : ''"
+              :state="form.errors.name ? !(form.errors.name !== undefined) : null"
             >
             </b-form-input>
 
@@ -32,7 +32,7 @@
               v-maska="['###.###.###-##', '##.###.###/###-##']"
               v-model="form.inputs.document"
               placeholder="Digite o documento"
-              :class="form.errors.document ? 'has-error-custom' : ''"
+              :state="form.errors.document ? !(form.errors.document !== undefined) : null"
             >
             </b-form-input>
 
@@ -55,7 +55,7 @@
               type="text"
               v-model="form.inputs.rg"
               placeholder="Digite o RG"
-              :class="form.errors.rg ? 'has-error-custom' : ''"
+              :state="form.errors.rg ? !(form.errors.rg !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -75,7 +75,7 @@
               type="email"
               v-model="form.inputs.email"
               placeholder="Digite o e-mail"
-              :class="form.errors.email ? 'has-error-custom' : ''"
+              :state="form.errors.email ? !(form.errors.email !== undefined) : null"
             >
             </b-form-input>
 
@@ -99,7 +99,7 @@
               v-maska="'(##) #####-####'"
               v-model="form.inputs.phone"
               placeholder="Digite o telefone"
-              :class="form.errors.phone ? 'has-error-custom' : ''"
+              :state="form.errors.phone ? !(form.errors.phone !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -120,7 +120,7 @@
               v-maska="'#####-###'"
               v-model="form.inputs.zip_code"
               placeholder="Digite o CEP"
-              :class="form.errors.zip_code ? 'has-error-custom' : ''"
+              :state="form.errors.zip_code ? !(form.errors.zip_code !== undefined) : null"
             >
             </b-form-input>
 
@@ -143,7 +143,7 @@
               type="text"
               v-model="form.inputs.address"
               placeholder="Digite o endereço"
-              :class="form.errors.address ? 'has-error-custom' : ''"
+              :state="form.errors.address ? !(form.errors.address !== undefined) : null"
             >
             </b-form-input>
 
@@ -163,7 +163,7 @@
               type="text"
               v-model="form.inputs.neighborhood"
               placeholder="Digite o endereço"
-              :class="form.errors.neighborhood ? 'has-error-custom' : ''"
+              :state="form.errors.neighborhood ? !(form.errors.neighborhood !== undefined) : null"
             >
             </b-form-input>
 
@@ -186,7 +186,7 @@
               type="text"
               v-model="form.inputs.city"
               placeholder="Digite a cidade"
-              :class="form.errors.city ? 'has-error-custom' : ''"
+              :state="form.errors.city ? !(form.errors.city !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -204,7 +204,7 @@
             <b-form-select
               v-model="form.inputs.state"
               :options="select.stateOptions"
-              :class="form.errors.state ? 'has-error-custom' : ''"
+              :state="form.errors.state ? !(form.errors.state !== undefined) : null"
             >
             </b-form-select>
 
@@ -227,7 +227,7 @@
               type="text"
               v-model="form.inputs.login_br"
               placeholder="Digite o login BR"
-              :class="form.errors.login_br ? 'has-error-custom' : ''"
+              :state="form.errors.login_br ? !(form.errors.login_br !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -247,7 +247,7 @@
               type="text"
               v-model="form.inputs.password_br"
               placeholder="Digite a senha BR"
-              :class="form.errors.password_br ? 'has-error-custom' : ''"
+              :state="form.errors.password_br ? !(form.errors.password_br !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -269,7 +269,7 @@
               type="text"
               v-model="form.inputs.login_ba"
               placeholder="Digite o login BA"
-              :class="form.errors.login_ba ? 'has-error-custom' : ''"
+              :state="form.errors.login_ba ? !(form.errors.login_ba !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -289,7 +289,7 @@
               type="text"
               v-model="form.inputs.password_ba"
               placeholder="Digite a senha BA"
-              :class="form.errors.password_ba ? 'has-error-custom' : ''"
+              :state="form.errors.password_ba ? !(form.errors.password_ba !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -311,7 +311,7 @@
               type="text"
               v-model="form.inputs.login_go"
               placeholder="Digite o login GO"
-              :class="form.errors.login_go ? 'has-error-custom' : ''"
+              :state="form.errors.login_go ? !(form.errors.login_go !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -331,7 +331,7 @@
               type="text"
               v-model="form.inputs.password_go"
               placeholder="Digite a senha GO"
-              :class="form.errors.password_go ? 'has-error-custom' : ''"
+              :state="form.errors.password_go ? !(form.errors.password_go !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -353,7 +353,7 @@
               type="text"
               v-model="form.inputs.login_mg"
               placeholder="Digite o login MG"
-              :class="form.errors.login_mg ? 'has-error-custom' : ''"
+              :state="form.errors.login_mg ? !(form.errors.login_mg !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -373,7 +373,7 @@
               type="text"
               v-model="form.inputs.password_mg"
               placeholder="Digite a senha MG"
-              :class="form.errors.password_mg ? 'has-error-custom' : ''"
+              :state="form.errors.password_mg ? !(form.errors.password_mg !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -395,7 +395,7 @@
               type="text"
               v-model="form.inputs.login_sp"
               placeholder="Digite o login SP"
-              :class="form.errors.login_sp ? 'has-error-custom' : ''"
+              :state="form.errors.login_sp ? !(form.errors.login_sp !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -415,7 +415,7 @@
               type="text"
               v-model="form.inputs.password_sp"
               placeholder="Digite a senha SP"
-              :class="form.errors.password_sp ? 'has-error-custom' : ''"
+              :state="form.errors.password_sp ? !(form.errors.password_sp !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -437,7 +437,7 @@
               type="text"
               v-model="form.inputs.login_pr"
               placeholder="Digite o login PR"
-              :class="form.errors.login_pr ? 'has-error-custom' : ''"
+              :state="form.errors.login_pr ? !(form.errors.login_pr !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -457,7 +457,7 @@
               type="text"
               v-model="form.inputs.password_pr"
               placeholder="Digite a senha PR"
-              :class="form.errors.password_pr ? 'has-error-custom' : ''"
+              :state="form.errors.password_pr ? !(form.errors.password_pr !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -479,7 +479,7 @@
               type="text"
               v-model="form.inputs.login_pe"
               placeholder="Digite o login PE"
-              :class="form.errors.login_pe ? 'has-error-custom' : ''"
+              :state="form.errors.login_pe ? !(form.errors.login_pe !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -499,7 +499,7 @@
               type="text"
               v-model="form.inputs.password_pe"
               placeholder="Digite a senha PE"
-              :class="form.errors.password_pe ? 'has-error-custom' : ''"
+              :state="form.errors.password_pe ? !(form.errors.password_pe !== undefined) : null"
             >
             </b-form-input>
             <ul
@@ -615,7 +615,4 @@ export default {
 </script>
 
 <style scoped>
-.has-error-custom {
-  border-color: red;
-}
 </style>

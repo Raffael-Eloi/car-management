@@ -92,6 +92,10 @@
                       class="fa-solid fa-trash me-3 text-danger"
                       @click.prevent="deleteOwnerModal(owner)"
                     ></i>
+                    <i
+                      class="fa-solid fa-car"
+                      @click.prevent="showCarAssociateds(owner)"
+                    ></i>
                   </b-td>
                 </b-tr>
               </b-tbody>
@@ -126,6 +130,11 @@
               :close="closeModalEditOwner"
               :token="token"
             />
+            <cars-associated-component
+              :active="modal.openCarsAssociatedModel"
+              :owner="owner"
+              :close="closeModalShowCarAssociated"
+            />
           </b-col>
         </b-row>
       </b-col>
@@ -139,6 +148,7 @@ import Sidebar from "../../shared/sidebar/Sidebar.vue";
 import CreateOwnerComponent from "./CreateOwnerComponent.vue";
 import ShowOwnerComponent from "./ShowOwnerComponent.vue";
 import EditOwnerComponent from "./EditOwnerComponent.vue";
+import CarsAssociatedComponent from "./CarsAssociatedComponent.vue";
 import router from '../../../routes.js';
 import api from "../../../api";
 
@@ -151,6 +161,7 @@ export default {
     "create-owner-component": CreateOwnerComponent,
     "show-owner-component": ShowOwnerComponent,
     "edit-owner-component": EditOwnerComponent,
+    "cars-associated-component": CarsAssociatedComponent,
   },
 
   beforeMount() {
@@ -171,6 +182,7 @@ export default {
         openCreateOwnerModal: false,
         openEditOwnerModal: false,
         openShowOwnerModal: false,
+        openCarsAssociatedModel: false
       },
 
       loading: true,
@@ -215,20 +227,27 @@ export default {
       if (
         this.modal.openCreateOwnerModal ||
         this.modal.openEditOwnerModal ||
-        this.modal.openShowOwnerModal
+        this.modal.openShowOwnerModal ||
+        this.modal.openCarsAssociatedModel
       )
         return true;
       else return false;
     },
 
     openModalShowOwner(owner) {
-      this.modal.openShowOwnerModal = true;
       this.owner = owner;
+      this.modal.openShowOwnerModal = true;
     },
 
     openModalEditOwner(owner) {
-      this.modal.openEditOwnerModal = true;
       this.owner = owner;
+      this.modal.openEditOwnerModal = true;
+    },
+
+    showCarAssociateds(owner) {
+      this.owner = owner;
+      console.log(owner);
+      this.modal.openCarsAssociatedModel = true;
     },
 
     closeModalCreateOwner() {
@@ -243,6 +262,10 @@ export default {
     closeModalEditOwner() {
       this.modal.openEditOwnerModal = false;
       this.getOwners();
+    },
+
+    closeModalShowCarAssociated() {
+      this.modal.openCarsAssociatedModel = false;
     },
 
     getOwners() {
