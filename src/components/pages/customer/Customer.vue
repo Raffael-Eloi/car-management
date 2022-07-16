@@ -92,6 +92,10 @@
                       class="fa-solid fa-trash me-3 text-danger"
                       @click.prevent="deleteCustomerModal(customer)"
                     ></i>
+                    <i
+                      class="fa-solid fa-car"
+                      @click.prevent="showCarAssociateds(customer)"
+                    ></i>
                   </b-td>
                 </b-tr>
               </b-tbody>
@@ -126,6 +130,11 @@
               :close="closeModalEditCustomer"
               :token="token"
             />
+            <cars-associated-component
+              :active="modal.openCarsAssociatedModel"
+              :customer="customer"
+              :close="closeModalShowCarAssociated"
+            />
           </b-col>
         </b-row>
       </b-col>
@@ -139,6 +148,7 @@ import Sidebar from "../../shared/sidebar/Sidebar.vue";
 import CreateCustomerComponent from "./CreateCustomerComponent.vue";
 import ShowCustomerComponent from "./ShowCustomerComponent.vue";
 import EditCustomerComponent from "./EditCustomerComponent.vue";
+import CarsAssociatedComponent from "./CarsAssociatedComponent.vue";
 import router from '../../../routes.js';
 import api from "../../../api";
 
@@ -151,6 +161,7 @@ export default {
     "create-customer-component": CreateCustomerComponent,
     "show-customer-component": ShowCustomerComponent,
     "edit-customer-component": EditCustomerComponent,
+    "cars-associated-component": CarsAssociatedComponent
   },
 
   beforeMount() {
@@ -171,6 +182,7 @@ export default {
         openCreateCustomerModal: false,
         openEditCustomerModal: false,
         openShowCustomerModal: false,
+        openCarsAssociatedModel: false
       },
 
       loading: true,
@@ -215,7 +227,8 @@ export default {
       if (
         this.modal.openCreateCustomerModal ||
         this.modal.openEditCustomerModal ||
-        this.modal.openShowCustomerModal
+        this.modal.openShowCustomerModal ||
+        this.modal.openCarsAssociatedModel
       )
         return true;
       else return false;
@@ -231,6 +244,11 @@ export default {
       this.customer = customer;
     },
 
+    showCarAssociateds(customer) {
+      this.customer = customer;
+      this.modal.openCarsAssociatedModel = true;
+    },
+
     closeModalCreateCustomer() {
       this.modal.openCreateCustomerModal = false;
       this.getCustomer();
@@ -243,6 +261,10 @@ export default {
     closeModalEditCustomer() {
       this.modal.openEditCustomerModal = false;
       this.getCustomer();
+    },
+
+    closeModalShowCarAssociated() {
+      this.modal.openCarsAssociatedModel = false;
     },
 
     getCustomer() {

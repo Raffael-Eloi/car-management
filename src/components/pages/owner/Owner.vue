@@ -246,7 +246,6 @@ export default {
 
     showCarAssociateds(owner) {
       this.owner = owner;
-      console.log(owner);
       this.modal.openCarsAssociatedModel = true;
     },
 
