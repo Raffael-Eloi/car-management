@@ -38,12 +38,26 @@
 
         <b-row class="px-5 mt-5" v-if="!isModalOpen()">
           <b-col md="4">
+            <b-row>
+              <b-col md="4">
+                <b-form-select v-model="table.filter.perPage">
+                  <b-form-select-option :value="10">10</b-form-select-option>
+                  <b-form-select-option :value="25">25</b-form-select-option>
+                  <b-form-select-option :value="50">50</b-form-select-option>
+                  <b-form-select-option :value="100">100</b-form-select-option>
+                </b-form-select>
+              </b-col>
+              <b-col md="8" class="mt-2">
+                Resultados por página
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col md="4"></b-col>
+          <b-col md="4">
             <b-button variant="secondary" @click="getVehicles()">
               Atualizar tabela <i class="fa-solid fa-arrows-rotate"></i>
             </b-button>
           </b-col>
-          <b-col md="4"></b-col>
-          <b-col md="4"></b-col>
         </b-row>
 
         <h5 class="text-center mt-5" v-if="!isModalOpen()">
@@ -97,16 +111,28 @@
                   </b-td>
                 </b-tr>
               </b-tbody>
-              <b-tfoot>
-                <b-tr>
-                  <b-td colspan="6" variant="success" class="text-end"
-                    ><span class="me-5"
-                      >Total de veículos: <b>{{ table.data.length }}</b></span
-                    ></b-td
-                  >
-                </b-tr>
-              </b-tfoot>
             </b-table-simple>
+          </b-col>
+        </b-row>
+
+        <b-row v-if="!loading && !isModalOpen()">
+          <b-col md="8"></b-col>
+          <b-col md="4">
+            <b-button-group>
+              <b-button
+                @click="previousPage()"
+                :disabled="this.table.filter.page === 1"
+              >
+                Anterior
+              </b-button>
+              <b-button>{{ table.filter.page }}</b-button>
+              <b-button 
+                @click="nextPage()"
+                :disabled="table.filter.nextPage === null"
+              >
+                Próximo
+              </b-button>
+            </b-button-group>
           </b-col>
         </b-row>
 
@@ -166,6 +192,11 @@ export default {
   data() {
     return {
       table: {
+        filter: {
+          perPage: 10,
+          page: 1,
+          nextPage: null
+        },
         data: [],
       },
 
@@ -254,11 +285,16 @@ export default {
           common: {
             Authorization: `Bearer ${this.token}`,
           }
-        }
+        },
+        params: this.table.filter
+        
       })
         .then((response) => {
-          this.table.data = response.data;
+          console.log('response', response.data)
+          this.table.filter.nextPage = response.data.next_page_url;
+          this.table.data = response.data.data;
           this.loading = false;
+          console.log('filter', this.table)
         })
         .catch((error) => console.log(error));
     },
@@ -301,6 +337,20 @@ export default {
     showSuccessfulDeleteMessage() {
       this.$swal("Concluído!", "Veículo excluído com sucesso.", "success");
     },
+
+    previousPage() {
+      if (this.table.filter.page !== 1) {
+        this.table.filter.page -= 1;
+        this.getVehicles();
+      }
+    },
+
+    nextPage() {
+      if (this.table.filter.nextPage !== null) {
+        this.table.filter.page += 1;
+        this.getVehicles();
+      }
+    }
   },
 };
 </script>
