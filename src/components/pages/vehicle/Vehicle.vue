@@ -8,16 +8,23 @@
 
       <b-col md="9">
         <b-row class="mt-3" v-if="!isModalOpen()">
-          <b-col md="8">
+          <b-col md="2">
+            <b-form-select v-model="table.filter.attributeSearch" :options="filterAttributeOptions"></b-form-select>
+          </b-col>
+          <b-col md="7">
             <b-row>
               <b-col md="10">
                 <b-form-input
                   type="text"
                   placeholder="Pesquisar veículo"
+                  v-model="table.filter.keywords"
                 ></b-form-input>
               </b-col>
               <b-col md="2">
-                <b-button variant="success"
+                <b-button
+                  variant="success"
+                  @click="searchVehicle()"
+                  :disabled="(table.filter.keywords === '' || table.filter.attributeSearch === '')"
                   ><i class="fa-solid fa-magnifying-glass"></i
                 ></b-button>
               </b-col>
@@ -25,7 +32,7 @@
             </b-row>
           </b-col>
 
-          <b-col md="4" v-if="!isModalOpen()">
+          <b-col md="3" v-if="!isModalOpen()">
             <b-button
               type="button"
               variant="success"
@@ -195,10 +202,21 @@ export default {
         filter: {
           perPage: 10,
           page: 1,
-          nextPage: null
+          nextPage: null,
+          keywords: '',
+          attributeSearch: '',
+          filterByAttribute: false
         },
         data: [],
       },
+
+      filterAttributeOptions: [
+        {value: null, text: 'Filtro'},
+        {value: 'brand', text: 'Marca'},
+        {value: 'model', text: 'Modelo'},
+        {value: 'license_plate', text: 'Placa'},
+        {value: 'color', text: 'Cor'}
+      ],
 
       modal: {
         openCreateVehicleModal: false,
@@ -350,6 +368,11 @@ export default {
         this.table.filter.page += 1;
         this.getVehicles();
       }
+    },
+
+    searchVehicle () {
+      this.table.filter.filterByAttribute = true;
+      this.getVehicles();
     }
   },
 };
