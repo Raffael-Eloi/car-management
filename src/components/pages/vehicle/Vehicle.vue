@@ -11,12 +11,15 @@
           <b-col md="2">
             <b-form-select v-model="table.filter.attributeSearch" :options="filterAttributeOptions"></b-form-select>
           </b-col>
-          <b-col md="7">
+          <b-col md="1">
+            <b-button variant="danger" @click="cleanFilter()">Limpar</b-button>
+          </b-col>
+          <b-col md="6">
             <b-row>
               <b-col md="10">
                 <b-form-input
                   type="text"
-                  placeholder="Pesquisar veículo"
+                  placeholder="Pesquisar"
                   v-model="table.filter.keywords"
                 ></b-form-input>
               </b-col>
@@ -372,6 +375,13 @@ export default {
 
     searchVehicle () {
       this.table.filter.filterByAttribute = true;
+      this.getVehicles();
+    },
+
+    cleanFilter() {
+      this.table.filter.attributeSearch = '';
+      this.table.filter.filterByAttribute = false;
+      this.table.filter.keywords = '';
       this.getVehicles();
     }
   },
