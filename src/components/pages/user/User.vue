@@ -8,21 +8,29 @@
 
       <b-col md="9">
         <b-row class="mt-3" v-if="!isModalOpen()">
-          <b-col md="1">
-            <b-button variant="success"><i class="fa-solid fa-filter"></i></b-button>
+          <b-col md="2">
+            <b-form-select v-model="table.filter.attributeSearch" :options="filterAttributeOptions"></b-form-select>
           </b-col>
-          <b-col md="8">
+          <b-col md="1">
+            <b-button variant="danger" @click="cleanFilter()">Limpar</b-button>
+          </b-col>
+          <b-col md="6">
             <b-row>
               <b-col md="10">
                 <b-form-input
                   type="text"
-                  placeholder="Pesquisar usuário"
+                  placeholder="Pesquisar"
+                  v-model="table.filter.keywords"
                 ></b-form-input>
               </b-col>
               <b-col md="2">
-                <b-button variant="success" @click="getUsers()"
-                  ><i class="fa-solid fa-magnifying-glass"></i
-                ></b-button>
+                <b-button
+                  variant="success"
+                  @click="searchUser()"
+                  :disabled="(table.filter.keywords === '' || table.filter.attributeSearch === '')"
+                >
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </b-button>
               </b-col>
               <br />
             </b-row>
@@ -41,12 +49,26 @@
 
         <b-row class="px-5 mt-5" v-if="!isModalOpen()">
           <b-col md="4">
+            <b-row>
+              <b-col md="4">
+                <b-form-select v-model="table.filter.perPage">
+                  <b-form-select-option :value="10">10</b-form-select-option>
+                  <b-form-select-option :value="25">25</b-form-select-option>
+                  <b-form-select-option :value="50">50</b-form-select-option>
+                  <b-form-select-option :value="100">100</b-form-select-option>
+                </b-form-select>
+              </b-col>
+              <b-col md="8" class="mt-2">
+                Resultados por página
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col md="4"></b-col>
+          <b-col md="4">
             <b-button variant="secondary" @click="getUsers()">
               Atualizar tabela <i class="fa-solid fa-arrows-rotate"></i>
             </b-button>
           </b-col>
-          <b-col md="4"></b-col>
-          <b-col md="4"></b-col>
         </b-row>
 
         <h5 class="text-center mt-5" v-if="!isModalOpen()">
@@ -96,16 +118,28 @@
                   </b-td>
                 </b-tr>
               </b-tbody>
-              <b-tfoot>
-                <b-tr>
-                  <b-td colspan="5" variant="success" class="text-end"
-                    ><span class="me-5"
-                      >Total de usuários: <b>{{ table.data.length }}</b></span
-                    ></b-td
-                  >
-                </b-tr>
-              </b-tfoot>
             </b-table-simple>
+          </b-col>
+        </b-row>
+
+        <b-row v-if="!loading && !isModalOpen()">
+          <b-col md="8"></b-col>
+          <b-col md="4">
+            <b-button-group>
+              <b-button
+                @click="previousPage()"
+                :disabled="this.table.filter.page === 1"
+              >
+                Anterior
+              </b-button>
+              <b-button>{{ table.filter.page }}</b-button>
+              <b-button 
+                @click="nextPage()"
+                :disabled="table.filter.nextPage === null"
+              >
+                Próximo
+              </b-button>
+            </b-button-group>
           </b-col>
         </b-row>
 
@@ -165,8 +199,24 @@ export default {
   data() {
     return {
       table: {
+        filter: {
+          perPage: 10,
+          page: 1,
+          nextPage: null,
+          keywords: '',
+          attributeSearch: '',
+          filterByAttribute: false
+        },
         data: [],
       },
+
+      filterAttributeOptions: [
+        {value: null, text: 'Filtro'},
+        {value: 'name', text: 'Nome'},
+        {value: 'document', text: 'CPF/CPNJ'},
+        {value: 'phone', text: 'Telefone'},
+        {value: 'email', text: 'E-mail'}
+      ],
 
       modal: {
         openCreateUserModal: false,
@@ -253,10 +303,11 @@ export default {
           common: {
             Authorization: `Bearer ${this.token}`,
           }
-        }
+        },
+        params: this.table.filter
       })
         .then((response) => {
-          this.table.data = response.data;
+          this.table.data = response.data.data;
           this.loading = false;
         })
         .catch((error) => console.log(error));
@@ -300,6 +351,32 @@ export default {
     showSuccessfulDeleteMessage() {
       this.$swal("Concluído!", "Usuário excluído com sucesso.", "success");
     },
+
+    previousPage() {
+      if (this.table.filter.page !== 1) {
+        this.table.filter.page -= 1;
+        this.getUsers();
+      }
+    },
+
+    nextPage() {
+      if (this.table.filter.nextPage !== null) {
+        this.table.filter.page += 1;
+        this.getUsers();
+      }
+    },
+
+    searchUser () {
+      this.table.filter.filterByAttribute = true;
+      this.getUsers();
+    },
+
+    cleanFilter() {
+      this.table.filter.attributeSearch = '';
+      this.table.filter.filterByAttribute = false;
+      this.table.filter.keywords = '';
+      this.getUsers();
+    }
   },
 };
 </script>
