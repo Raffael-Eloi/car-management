@@ -25,6 +25,7 @@
               </b-col>
               <b-col md="2">
                 <b-button
+                  variant="success"
                   @click="searchOwner()"
                   :disabled="(table.filter.keywords === '' || table.filter.attributeSearch === '')"
                 >

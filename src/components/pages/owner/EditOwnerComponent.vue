@@ -536,7 +536,7 @@
             @click.prevent="updateOwner()"
             :disabled="form.loading"
           >
-            Cadastrar <i class="fa-solid fa-floppy-disk"></i>
+            Salvar <i class="fa-solid fa-floppy-disk"></i>
           </b-button>
         </b-col>
       </b-row>
