@@ -32,6 +32,12 @@
           <i class="fa-solid fa-gears ms-5"></i> Caixa de marchas
         </b-list-group-item>
       </router-link>
+      
+      <router-link :to="{ name: 'gearbox' }">
+        <b-list-group-item class="list-item-custom">
+          <i class="fa-solid fa-gears ms-5"></i> Requerimento
+        </b-list-group-item>
+      </router-link>
     </b-list-group>
   </aside>
 </template>
