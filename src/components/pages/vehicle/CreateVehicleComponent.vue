@@ -388,8 +388,47 @@
         </b-col>
       </b-row>
 
+      <hr>
+      <h6 class="text-center">Pesquisar Proprietário</h6>
+      <br>
       <b-row>
-        <b-col>
+        <b-col md="3">
+          <b-form-select v-model="filterOwner.attributeSearch" :options="filterAttributeOptionsOwner"></b-form-select>
+        </b-col>
+        <b-col md="2">
+          <b-button variant="danger" @click="cleanFilterOwner()">Limpar</b-button>
+        </b-col>
+        <b-col md="6">
+          <b-row>
+            <b-col md="10">
+              <b-form-input
+                type="text"
+                placeholder="Pesquisar"
+                v-model="filterOwner.keywords"
+              ></b-form-input>
+            </b-col>
+            <b-col md="2">
+              <b-button
+                variant="success"
+                @click="searchOwners()"
+                :disabled="(filterOwner.keywords === '' || filterOwner.attributeSearch === '')"
+                ><i class="fa-solid fa-magnifying-glass"></i
+              ></b-button>
+            </b-col>
+            <br />
+          </b-row>
+        </b-col>
+      </b-row>
+      <br />
+
+      <b-row>
+        <b-col v-if="loadingOwnerSelect">
+          <div class="text-center">
+            <b-spinner variant="secondary" class="m-5"></b-spinner>
+          </div>
+        </b-col>
+
+        <b-col v-else>
           <b-form-group label="Proprietário" label-for="input-owner">
             <b-form-select
               id="input-owner"
@@ -409,9 +448,48 @@
           </b-form-group>
         </b-col>
       </b-row>
+      <hr>
       
+      <h6 class="text-center">Pesquisar Cliente</h6>
+      <br>
       <b-row>
-        <b-col>
+        <b-col md="3">
+          <b-form-select v-model="filterCustomer.attributeSearch" :options="filterAttributeOptionsCustomer"></b-form-select>
+        </b-col>
+        <b-col md="2">
+          <b-button variant="danger" @click="cleanFilter()">Limpar</b-button>
+        </b-col>
+        <b-col md="6">
+          <b-row>
+            <b-col md="10">
+              <b-form-input
+                type="text"
+                placeholder="Pesquisar"
+                v-model="filterCustomer.keywords"
+              ></b-form-input>
+            </b-col>
+            <b-col md="2">
+              <b-button
+                variant="success"
+                @click="searchCustomers()"
+                :disabled="(filterCustomer.keywords === '' || filterCustomer.attributeSearch === '')"
+                ><i class="fa-solid fa-magnifying-glass"></i
+              ></b-button>
+            </b-col>
+            <br />
+          </b-row>
+        </b-col>
+      </b-row>
+      <br />
+
+      <b-row>
+        <b-col v-if="loadingCustomerSelect">
+          <div class="text-center">
+            <b-spinner variant="secondary" class="m-5"></b-spinner>
+          </div>
+        </b-col>
+
+        <b-col v-else>
           <b-form-group label="Cliente associado" label-for="input-customer">
             <b-form-select
               id="input-customer"
@@ -478,8 +556,6 @@ export default {
 
   mounted() {
     this.getAllGearBoxes();
-    this.getOwners();
-    this.getCustomers();
   },
 
   created() {
@@ -488,11 +564,45 @@ export default {
 
   data() {
     return {
+      filterOwner: {
+        perPage: 10,
+        page: 1,
+        nextPage: null,
+        keywords: '',
+        attributeSearch: '',
+        filterByAttribute: false
+      },
+
+      filterCustomer: {
+        perPage: 10,
+        page: 1,
+        nextPage: null,
+        keywords: '',
+        attributeSearch: '',
+        filterByAttribute: false
+      },
+
       form: {
         inputs: {},
         errors: {},
         loading: false,
       },
+
+      filterAttributeOptionsOwner: [
+        {value: null, text: 'Filtro'},
+        {value: 'name', text: 'Nome'},
+        {value: 'document', text: 'CPF/CPNJ'},
+        {value: 'phone', text: 'Telefone'},
+        {value: 'email', text: 'E-mail'}
+      ],
+
+      filterAttributeOptionsCustomer: [
+        {value: null, text: 'Filtro'},
+        {value: 'name', text: 'Nome'},
+        {value: 'document', text: 'CPF/CPNJ'},
+        {value: 'phone', text: 'Telefone'},
+        {value: 'email', text: 'E-mail'}
+      ],
 
       select: {
         yearModelOptions: yearModelList,
@@ -500,6 +610,10 @@ export default {
         ownersOptions: [],
         customersOptions: [],
       },
+
+      loadingOwnerSelect: false,
+      loadingCustomerSelect: false,
+
     };
   },
 
@@ -520,40 +634,59 @@ export default {
     },
 
     getAllGearBoxes() {
-      api.get("/gearboxes", {
-        headers: {
-          common: {
-            Authorization: `Bearer ${this.token}`,
-          }
-        }
-      })
-      .then(response => this.select.gearBoxOptions = response.data)
-      .catch(errors => console.log(errors));
+      // api.get("/gearboxes", {
+      //   headers: {
+      //     common: {
+      //       Authorization: `Bearer ${this.token}`,
+      //     }
+      //   },
+      // })
+      // .then(response => this.select.gearBoxOptions = response.data)
+      // .catch(errors => console.log(errors));
     },
 
-    getOwners() {
+    searchOwners() {
+      this.loadingOwnerSelect = true;
+      this.filterOwner.filterByAttribute = true;
+
       api.get("/owners", {
         headers: {
           common: {
             Authorization: `Bearer ${this.token}`,
           }
-        }
+        },
+        params: this.filterOwner
       })
-      .then(response => this.select.ownersOptions = response.data)
-      .catch(errors => console.log(errors));
+      .then(response => {
+        this.select.ownersOptions = response.data.data;
+        this.loadingOwnerSelect = false;
+      })
+      .catch(errors => {
+        console.log(errors);
+        this.table.loadingOwnerSelect = false;
+      });
     },
 
-    getCustomers() {
-      this.loading = true;
+    searchCustomers() {
+      this.loadingCustomerSelect = true;
+      this.filterCustomer.filterByAttribute = true;
+
       api.get("/customers", {
         headers: {
           common: {
             Authorization: `Bearer ${this.token}`,
           }
-        }
+        },
+        params: this.filterCustomer
       })
-        .then((response) => this.select.customersOptions = response.data)
-        .catch((error) => console.log(error));
+        .then(response => {
+          this.select.customersOptions = response.data.data;
+          this.loadingCustomerSelect = false;
+        })
+        .catch(error => {
+          console.log(error);
+          this.loadingCustomerSelect = false;
+        });
     },
 
     afterSuccessfulStore() {
@@ -576,6 +709,18 @@ export default {
     showErrorMessage(message) {
       this.$toast.error(message);
     },
+
+    cleanFilterOwner () {
+      this.filterOwner.attributeSearch = '',
+      this.filterOwner.filterByAttribute = false;
+      this.filterOwner.keywords = '';
+    },
+
+    cleanFilterCustomer () {
+      this.filterCustomer.attributeSearch = '',
+      this.filterCustomer.filterByAttribute = false;
+      this.filterCustomer.keywords = '';
+    }
   },
 };
 </script>

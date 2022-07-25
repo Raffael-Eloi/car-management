@@ -311,11 +311,9 @@ export default {
         
       })
         .then((response) => {
-          console.log('response', response.data)
           this.table.filter.nextPage = response.data.next_page_url;
           this.table.data = response.data.data;
           this.loading = false;
-          console.log('filter', this.table)
         })
         .catch((error) => console.log(error));
     },
