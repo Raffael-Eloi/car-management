@@ -634,15 +634,15 @@ export default {
     },
 
     getAllGearBoxes() {
-      // api.get("/gearboxes", {
-      //   headers: {
-      //     common: {
-      //       Authorization: `Bearer ${this.token}`,
-      //     }
-      //   },
-      // })
-      // .then(response => this.select.gearBoxOptions = response.data)
-      // .catch(errors => console.log(errors));
+      api.get("/gearboxes/all", {
+        headers: {
+          common: {
+            Authorization: `Bearer ${this.token}`,
+          }
+        },
+      })
+      .then(response => this.select.gearBoxOptions = response.data)
+      .catch(errors => console.log(errors));
     },
 
     searchOwners() {

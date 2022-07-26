@@ -393,9 +393,57 @@
           </b-form-group>
         </b-col>
       </b-row>
+      <hr>
+
+      <div>
+        <b-button
+          v-b-toggle.collapse-1
+          variant="success"
+          class="mb-3"
+        >
+          Abrir filtro proprietário <i class="fa-solid fa-up-right-from-square ms-1"></i>
+        </b-button>
+        <b-collapse id="collapse-1" class="mt-2">
+          <h6 class="text-center">Pesquisar Proprietário</h6>
+          <br>
+          <b-row>
+            <b-col md="3">
+              <b-form-select 
+                v-model="filterOwner.attributeSearch"
+                :options="filterAttributeOptionsCustomer"
+              >
+              </b-form-select>
+            </b-col>
+            <b-col md="2">
+              <b-button variant="danger" @click="cleanFilterOwner()">Limpar</b-button>
+            </b-col>
+            <b-col md="6">
+              <b-row>
+                <b-col md="10">
+                  <b-form-input
+                    type="text"
+                    placeholder="Pesquisar"
+                    v-model="filterOwner.keywords"
+                  ></b-form-input>
+                </b-col>
+                <b-col md="2">
+                  <b-button
+                    variant="success"
+                    @click="searchOwners()"
+                    :disabled="(filterOwner.keywords === '' || filterOwner.attributeSearch === '')"
+                    ><i class="fa-solid fa-magnifying-glass"></i
+                  ></b-button>
+                </b-col>
+                <br />
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-collapse>
+      </div>
+      <br> 
 
       <b-row>
-        <b-col v-if="select.ownersOptions.length === 0">
+        <b-col v-if="loadingOwnerSelect">
           <div class="text-center">
             <b-spinner variant="secondary" class="m-5"></b-spinner>
           </div>
@@ -422,8 +470,56 @@
         </b-col>
       </b-row>
 
+      <hr>
+      <div>
+        <b-button
+          v-b-toggle.collapse-2
+          variant="success"
+          class="mb-3"
+        >
+          Abrir filtro cliente <i class="fa-solid fa-up-right-from-square ms-1"></i>
+        </b-button>
+        <b-collapse id="collapse-2" class="mt-2">
+          <h6 class="text-center">Pesquisar Cliente</h6>
+          <br>
+          <b-row>
+            <b-col md="3">
+              <b-form-select 
+                v-model="filterCustomer.attributeSearch"
+                :options="filterAttributeOptionsCustomer"
+              >
+              </b-form-select>
+            </b-col>
+            <b-col md="2">
+              <b-button variant="danger" @click="cleanFilterCustomer()">Limpar</b-button>
+            </b-col>
+            <b-col md="6">
+              <b-row>
+                <b-col md="10">
+                  <b-form-input
+                    type="text"
+                    placeholder="Pesquisar"
+                    v-model="filterCustomer.keywords"
+                  ></b-form-input>
+                </b-col>
+                <b-col md="2">
+                  <b-button
+                    variant="success"
+                    @click="searchCustomers()"
+                    :disabled="(filterCustomer.keywords === '' || filterCustomer.attributeSearch === '')"
+                    ><i class="fa-solid fa-magnifying-glass"></i
+                  ></b-button>
+                </b-col>
+                <br />
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-collapse>
+      </div>
+      <br> 
+
       <b-row>
-        <b-col v-if="select.customersOptions.length === 0">
+        <b-col v-if="loadingCustomerSelect">
           <div class="text-center">
             <b-spinner variant="secondary" class="m-5"></b-spinner>
           </div>
@@ -497,8 +593,11 @@ export default {
 
   mounted() {
     this.getAllGearBoxes();
-    this.getOwners();
-    this.getCustomers();
+    if (this.vehicle.owner)
+      this.select.ownersOptions.push(this.vehicle.owner);
+    
+    if (this.vehicle.customer)
+      this.select.customersOptions.push(this.vehicle.customer);
   },
 
   created() {
@@ -513,12 +612,49 @@ export default {
         loading: false,
       },
 
+      filterOwner: {
+        perPage: 10,
+        page: 1,
+        nextPage: null,
+        keywords: '',
+        attributeSearch: '',
+        filterByAttribute: false
+      },
+
+      filterCustomer: {
+        perPage: 10,
+        page: 1,
+        nextPage: null,
+        keywords: '',
+        attributeSearch: '',
+        filterByAttribute: false
+      },
+
+      filterAttributeOptionsOwner: [
+        {value: null, text: 'Filtro'},
+        {value: 'name', text: 'Nome'},
+        {value: 'document', text: 'CPF/CPNJ'},
+        {value: 'phone', text: 'Telefone'},
+        {value: 'email', text: 'E-mail'}
+      ],
+
+      filterAttributeOptionsCustomer: [
+        {value: null, text: 'Filtro'},
+        {value: 'name', text: 'Nome'},
+        {value: 'document', text: 'CPF/CPNJ'},
+        {value: 'phone', text: 'Telefone'},
+        {value: 'email', text: 'E-mail'}
+      ],
+
       select: {
         yearModelOptions: yearModelList,
         gearBoxOptions: [],
         ownersOptions: [],
         customersOptions: []
       },
+
+      loadingOwnerSelect: false,
+      loadingCustomerSelect: false,
     };
   },
 
@@ -539,7 +675,7 @@ export default {
     },
 
     getAllGearBoxes() {
-      api.get("/gearboxes", {
+      api.get("/gearboxes/all", {
         headers: {
           common: {
             Authorization: `Bearer ${this.token}`,
@@ -550,29 +686,48 @@ export default {
         .catch((errors) => console.log(errors));
     },
 
-    getOwners() {
+    searchOwners() {
+      this.loadingOwnerSelect = true;
+      this.filterOwner.filterByAttribute = true;
+
       api.get("/owners", {
         headers: {
           common: {
             Authorization: `Bearer ${this.token}`,
           }
-        }
+        },
+        params: this.filterOwner
       })
-      .then(response => this.select.ownersOptions = response.data)
-      .catch(errors => console.log(errors));
+      .then(response => {
+        this.loadingOwnerSelect = false;
+        this.select.ownersOptions = response.data.data;
+      })
+      .catch(errors => {
+        console.log(errors);
+        this.loadingOwnerSelect = false;
+      });
     },
 
-    getCustomers() {
-      this.loading = true;
+    searchCustomers() {
+      this.loadingCustomerSelect = true;
+      this.filterCustomer.filterByAttribute = true;
+
       api.get("/customers", {
         headers: {
           common: {
             Authorization: `Bearer ${this.token}`,
           }
-        }
+        },
+        params: this.filterCustomer
       })
-        .then((response) => this.select.customersOptions = response.data)
-        .catch((error) => console.log(error));
+        .then(response => {
+          this.select.customersOptions = response.data.data;
+          this.loadingCustomerSelect = false;
+        })
+        .catch(error => {
+          console.log(error);
+          this.loadingCustomerSelect = false;
+        });
     },
 
     afterSuccessfulUpdate() {
@@ -593,6 +748,18 @@ export default {
     showErrorMessage(message) {
       this.$toast.error(message);
     },
+
+    cleanFilterOwner () {
+      this.filterOwner.attributeSearch = '',
+      this.filterOwner.filterByAttribute = false;
+      this.filterOwner.keywords = '';
+    },
+
+    cleanFilterCustomer () {
+      this.filterCustomer.attributeSearch = '',
+      this.filterCustomer.filterByAttribute = false;
+      this.filterCustomer.keywords = '';
+    }
   },
 };
 </script>
